@@ -1,0 +1,18 @@
+-- Here can you write down the objectives for this project and the issues you'll find while programming.
+
+
+
+-- Objectives
+
+
+
+- Write a timer where each second, you will lose an amount of points.
+
+- Write a points system.
+
+
+
+-- Issues
+
+- We can't use the Turtle library due to being slow when getting inputs, 
+so we have to write the game that runs on a terminal or use a different graphics library.
