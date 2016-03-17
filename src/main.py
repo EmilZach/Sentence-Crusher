@@ -101,7 +101,7 @@ def new_game():
     
     # --------------------  INPUT -------------------- #
     yes_or_no = input("Start again? Yes?")
-    if yes_or_no.upper() == "YES":
+    if yes_or_no.upper() == ("YES") or yes_or_no.upper() == ("Y"):
         new_game()
 
 
