@@ -73,12 +73,13 @@ def points_calc(points, clock_before, string, user_string):
 
 
 def new_game():
+    global user_name
     # --------------------  INIT -------------------- #
     string = "Lisa gikk til skolen. Tripp, tripp, tripp det sa. I den nye kjolen, trippet hun så glad."
     points = 300
 
     # --------------------  GRAPHICS -------------------- #
-    input("Tast enter, og gjør deg klar til å skrive!")
+    input("%s, press enter and get ready to write!" % user_name)
     for i in (3, 2, 1):
         print(i)
         time.sleep(1)
