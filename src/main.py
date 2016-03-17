@@ -13,11 +13,9 @@ import datetime
 
 
 # Timestamp
-ts = time.time()
-st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-print(st)                                                                       # debug data  --- raglew
-
+print(ts)
 
 game_name = 'Sentence Crusher'
 
