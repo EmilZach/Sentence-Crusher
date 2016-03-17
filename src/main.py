@@ -29,6 +29,7 @@ def points_calc(points, clock_before, string, user_string):
                         against string.
     :return: points - the final score is returned.
     """
+
     # --- Evaluate how much time the user has spent typing ---
     # --- Penalty = - 10 points for each second after 5 seconds ---
 
@@ -70,30 +71,45 @@ def points_calc(points, clock_before, string, user_string):
     print("Length_diff:  ", length_diff)
     print("After length_diff: ", points, "points")   # debug data
 
+    if points < 1:
+        points = 1
+
     return points
 
 
 def pick_string_level(level):
 
-    string_dict = {1: "Object-oriented programming is an exceptionally bad idea which could only have originated in California. - Edsger Dijkstra"
-                   2: "Good, better, best. Never let it rest. 'Til your good is better and your better is best."
-                   3: "You might not think that programmers are artists, but programming is an extremely creative profession. It's logic-based creativity. - John Romero"
+    string_dict = {1: "Object-oriented programming is an exceptionally bad idea "
+                      "which could only have originated in California. - Edsger Dijkstra",
+                   2: "Good, better, best. Never let it rest. 'Til your good is better"
+                      " and your better is best.",
+                   3: "You might not think that programmers are artists, but programming"
+                      " is an extremely creative profession. It's logic-based creativity."
+                      " - John Romero",
                    4: "Low-level programming is good for the programmer's soul. - John Carmack"
+                   }
     
+    return string_dict[level]
+
 
 def new_game():
-    global user_name
     # --------------------  INIT/input -------------------- #
-        
     points = 300
-    user_name = input("%s, press enter and get ready to write!" % user_name)
+    print("\nHello, %s " % user_name)
+
+    # --- User picks level 1, 2, 3 or 4 ----
+    level_name = int(input("Which level do you want to play; level[1, 2, 3, 4] "))
+    string = pick_string_level(level_name)
+
+    # --- User is asked to press enter to continue ---
+    input("\n\tNow, press enter and get ready to write!")
     
     # --------------------  GRAPHICS -------------------- #
     for i in (3, 2, 1):
-        print(i)
+        print("\t", i)
         time.sleep(1)
 
-    print("Go!!")
+    print("\tGo!!\n")
     time.sleep(1)
     clock_before = time.clock()  # checks time before input
     
@@ -106,19 +122,21 @@ def new_game():
     print(string)
     user_string = input()
 
+    print("\n  LEVEL %d" % level_name, "\n")
+
     # --------------------- LOGIC ----------------------- # 
     points = points_calc(points, clock_before, string, user_string)
 
     # Timestamp
-    ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    time_stamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     # --------------------  GRAPHICS -------------------- #
     print("Total points: ", int(points), "points")
-    print("Time:", ts)
+    print("Time:", time_stamp)
     
     # --------------------  INPUT -------------------- #
-    yes_or_no = input("Start again? Yes?")
-    if yes_or_no.upper() == ("YES") or yes_or_no.upper() == ("Y"):
+    yes_or_no = input("\n  Start again? Yes?")
+    if yes_or_no.upper() == "YES" or yes_or_no.upper() == "Y":
         new_game()
 
 
@@ -128,6 +146,11 @@ if __name__ == "__main__":
 
 
 """
+   Output of program: game_name, user_name, level_name, points, time_stamp
+"""
+
+"""
+  session 17:00 - 17:38        Jonas
   session 12:25 - 12:40        Jonas
   session 00:25 - 01:31        Jonas
 """
