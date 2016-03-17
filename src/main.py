@@ -12,11 +12,6 @@ import time
 import datetime
 
 
-# Timestamp
-ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-print(ts)
-
 game_name = 'Sentence Crusher'
 
 
@@ -114,8 +109,12 @@ def new_game():
     # --------------------- LOGIC ----------------------- # 
     points = points_calc(points, clock_before, string, user_string)
 
+    # Timestamp
+    ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
     # --------------------  GRAPHICS -------------------- #
     print("Total points: ", int(points), "points")
+    print("Time:", ts)
     
     # --------------------  INPUT -------------------- #
     yes_or_no = input("Start again? Yes?")
