@@ -16,3 +16,6 @@ Network and web:
 
 - We can't use the Turtle library due to being slow when getting inputs, 
 so we have to write the game that runs on a terminal or use a different graphics library.
+
+-- Top Score
+  Jonas -- 221p
