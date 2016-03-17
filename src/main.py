@@ -1,7 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """
-   Tittel: Sentence Crusher
+   Title: Sentence Crusher
    Authors: Jonas, Glenn, Emil, JanCato
-   Startet: 16.03.2016
+   Started: 16.03.2016
 
 """
 
@@ -39,7 +42,15 @@ def points_calc(points, clock_before, string, user_string):
     # --- Evaluate if each letter is correct ----
     # --- Penalty 2 points for each letter wrong----
     wrong_letter = 0
-    for i in range(len(string)):
+
+    # --- Choose shortest string ---
+    if len(string) <= len(user_string):
+        shortest_string = len(string)
+    else:
+        shortest_string = len(user_string)
+
+    # --- Use shortest string in loop below ---
+    for i in range(shortest_string):
         if string[i] == user_string[i]:
             pass
         else:
@@ -99,6 +110,6 @@ if __name__ == "__main__":
 
 
 """
-  session 12:25  - 12:40        Jonas
-  session 00:25  - 01:31        Jonas
+  session 12:25 - 12:40        Jonas
+  session 00:25 - 01:31        Jonas
 """
