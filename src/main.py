@@ -75,6 +75,8 @@ def new_game():
     points = 300
 
     # --------------------  GRAPHICS -------------------- #
+    user_name = input('Please enter your user name: ').upper()
+    print(user_name)
     input("Tast enter, og gjør deg klar til å skrive!")
     for i in (3, 2, 1):
         print(i)
