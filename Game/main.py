@@ -122,7 +122,7 @@ def new_game():
     print(string)
     user_string = input()
 
-    print("\n  LEVEL %d" % level_name, "\n")
+    print("\n  LEVEL %d  STATS" % level_name, "\n")
 
     # --------------------- LOGIC ----------------------- # 
     points = points_calc(points, clock_before, string, user_string)
