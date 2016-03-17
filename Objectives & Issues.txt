@@ -1,14 +1,14 @@
 -- Here can you write down the objectives for this project and the issues you'll find while programming.
 
+\+----------- Objectives -------------------------------------------+\
 
+Game:
+1. Write a timer where each second, you will lose an amount of points. 
+2. Write a points system.                                               
 
--- Objectives
-
-
-
-- Write a timer where each second, you will lose an amount of points.
-
-- Write a points system.
+Network and web:
+1. Send points, name-info, game-info, date-info to flask server.
+2. Post information in HTML+CSS website, ass a leaderboard/scoreboard.
 
 
 
