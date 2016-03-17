@@ -9,6 +9,14 @@
 """
 
 import time
+import datetime
+
+
+# Timestamp
+ts = time.time()
+st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+
+print(st)                                                                       # debug data  --- raglew
 
 
 game_name = 'Sentence Crusher'
