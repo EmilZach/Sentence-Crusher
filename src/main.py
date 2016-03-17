@@ -78,14 +78,22 @@ def points_calc(points, clock_before, string, user_string):
     return points
 
 
+def pick_string_level(level):
+
+    string_dict = {1: "Object-oriented programming is an exceptionally bad idea which could only have originated in California. - Edsger Dijkstra"
+                   2: "Good, better, best. Never let it rest. 'Til your good is better and your better is best."
+                   3: "You might not think that programmers are artists, but programming is an extremely creative profession. It's logic-based creativity. - John Romero"
+                   4: "Low-level programming is good for the programmer's soul. - John Carmack"
+    
+
 def new_game():
     global user_name
-    # --------------------  INIT -------------------- #
-    string = "Lisa gikk til skolen. Tripp, tripp, tripp det sa. I den nye kjolen, trippet hun så glad."
+    # --------------------  INIT/input -------------------- #
+        
     points = 300
-
+    user_name = input("%s, press enter and get ready to write!" % user_name)
+    
     # --------------------  GRAPHICS -------------------- #
-    input("%s, press enter and get ready to write!" % user_name)
     for i in (3, 2, 1):
         print(i)
         time.sleep(1)

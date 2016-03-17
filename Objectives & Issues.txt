@@ -18,4 +18,6 @@ Network and web:
 so we have to write the game that runs on a terminal or use a different graphics library.
 
 -- Top Score
+  Jonas -- 234p
+  Jonas -- 231p
   Jonas -- 221p
