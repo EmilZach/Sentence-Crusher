@@ -11,6 +11,9 @@
 import time
 
 
+game_name = 'Sentence Crusher'
+
+
 def points_calc(points, clock_before, string, user_string):
     """ This function calculates the final score based on three
          criteria:
@@ -75,8 +78,6 @@ def new_game():
     points = 300
 
     # --------------------  GRAPHICS -------------------- #
-    user_name = input('Please enter your user name: ').upper()
-    print(user_name)
     input("Tast enter, og gjør deg klar til å skrive!")
     for i in (3, 2, 1):
         print(i)
@@ -108,6 +109,7 @@ def new_game():
 
 
 if __name__ == "__main__":
+    user_name = input('Please enter your user name: ').upper()
     new_game()
 
 
