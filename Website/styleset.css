@@ -1,7 +1,5 @@
 html, body {
   min-height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 body {
@@ -20,13 +18,13 @@ h1 {
 	font-size: 40pt;
 	border: 1px solid black;
 	color: #595959;
+	padding: 10pt;
 
 }
 
 h2 {
 	
 	padding: 5pt;
-	display: inline;
 	margin-left: 30pt;
 	margin-right: 30pt;
 	font-weight: 100;
@@ -53,19 +51,26 @@ a:hover {
 
 ol {
 	margin-top: 50pt;
+	
 }
 
 li {
-	text-align: center;
-	display: block;
 	margin: 10pt;
 	word-spacing: 5pt;
 }
 
+.lista {
+	display: flex;
+	justify-content: center;
+
+}
+
 .menu {
-	margin-top: 20pt;
+	margin-top: 50pt;
 	margin-left: 50pt;
 	margin-right: 50pt;
-	text-align: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
