@@ -25,8 +25,8 @@ h1 {
 h2 {
 	
 	padding: 5pt;
-	margin-left: 30pt;
-	margin-right: 30pt;
+	margin-left: 25pt;
+	margin-right: 25pt;
 	font-weight: 100;
 }
 
@@ -34,14 +34,15 @@ a {
 	padding: 10pt;
 	border: 1pt solid #adebad;
 	color: white;
-	text-decoration: none
+	text-decoration: none;
+	position: relative;
 }
 
 a:hover { 
     background-color: #adebad;
 }
 a:active {
-	background-color: red;
+	top: 3pt;
 }
 
 p {
@@ -59,6 +60,7 @@ ol {
 }
 
 li {
+	width:100%;
 	margin: 10pt;
 	word-spacing: 5pt;
 }
@@ -76,5 +78,6 @@ li {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	
 }
 
