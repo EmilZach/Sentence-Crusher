@@ -12,7 +12,7 @@ body {
 
 h1 {
 	background-color: #ff6666;
-	margin: 20pt 150pt; 
+	margin: 30pt 150pt; 
 	font-weight: 200;
 	text-align: center;
 	font-size: 40pt;
@@ -37,6 +37,13 @@ a {
 	text-decoration: none
 }
 
+a:hover { 
+    background-color: #adebad;
+}
+a:active {
+	background-color: red;
+}
+
 p {
 	margin-left: 100pt;
 	margin-right: 100pt;
@@ -45,9 +52,6 @@ p {
 	font-size: 1.3rem;
 }
 
-a:hover { 
-    background-color: #adebad;
-}
 
 ol {
 	margin-top: 50pt;
