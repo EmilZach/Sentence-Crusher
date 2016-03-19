@@ -3,34 +3,57 @@ html, body {
 }
 
 body {
-	font-family: 'Lato', sans-serif;
 	background: url("http://www.carolynshields.com/wp-content/uploads/2014/09/dark-website-background.jpg");
 	background-size: cover;
+	font-family: 'Lato', sans-serif;
 	color: white;
 	
+
 }
 
-h1 {
+#wrapper {
+	margin: auto;
+	width: 1200px;
+	height: 1200px;
+
+	/*border: 1pt solid white; debug*/
+
+	display: flex;
+	flex-direction: column;
+}
+
+.header {
 	background-color: #ff6666;
-	margin: 30pt 150pt; 
 	font-weight: 200;
 	text-align: center;
-	font-size: 40pt;
+	font-size: 2rem;
 	border: 1px solid black;
 	color: #595959;
-	padding: 10pt;
+	padding: 5pt;
 
 }
 
-h2 {
+.menu {
+	margin-top: 30pt;
+	margin-left: 50pt;
+	margin-right: 50pt;
+
+	/*border: 1pt solid white; debug*/
+
+
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 	
-	padding: 5pt;
-	margin-left: 25pt;
-	margin-right: 25pt;
-	font-weight: 100;
+}
+
+.menu_items {
+	margin: 50pt;
 }
 
 a {
+	font-size: 20pt;
+	font-weight: 100pt;
 	padding: 10pt;
 	border: 1pt solid #adebad;
 	color: white;
@@ -46,38 +69,30 @@ a:active {
 }
 
 p {
-	margin-left: 100pt;
-	margin-right: 100pt;
-	margin-top: 60pt;
+	/*border: 1pt solid white; debug*/
+	font-size: 2rem;
 	text-align: center;
-	font-size: 1.3rem;
 }
 
+.lista {
+	/*border: 1pt solid white; debug*/
+	display: flex;
+	justify-content: center;
 
+}
 ol {
+	/*border: 1pt solid white; debug*/
 	margin-top: 50pt;
+	font-size: 1.5rem
 	
 }
-
 li {
 	width:100%;
 	margin: 10pt;
 	word-spacing: 5pt;
 }
 
-.lista {
-	display: flex;
-	justify-content: center;
 
-}
 
-.menu {
-	margin-top: 50pt;
-	margin-left: 50pt;
-	margin-right: 50pt;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	
-}
+
 
