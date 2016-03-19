@@ -1,0 +1,71 @@
+html, body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+	font-family: 'Lato', sans-serif;
+	background: url("http://www.carolynshields.com/wp-content/uploads/2014/09/dark-website-background.jpg");
+	background-size: cover;
+	color: white;
+	
+}
+
+h1 {
+	background-color: #ff6666;
+	margin: 20pt 150pt; 
+	font-weight: 200;
+	text-align: center;
+	font-size: 40pt;
+	border: 1px solid black;
+	color: #595959;
+
+}
+
+h2 {
+	
+	padding: 5pt;
+	display: inline;
+	margin-left: 30pt;
+	margin-right: 30pt;
+	font-weight: 100;
+}
+
+a {
+	padding: 10pt;
+	border: 1pt solid #adebad;
+	color: white;
+	text-decoration: none
+}
+
+p {
+	margin-left: 100pt;
+	margin-right: 100pt;
+	margin-top: 60pt;
+	text-align: center;
+	font-size: 1.3rem;
+}
+
+a:hover { 
+    background-color: #adebad;
+}
+
+ol {
+	margin-top: 50pt;
+}
+
+li {
+	text-align: center;
+	display: block;
+	margin: 10pt;
+	word-spacing: 5pt;
+}
+
+.menu {
+	margin-top: 20pt;
+	margin-left: 50pt;
+	margin-right: 50pt;
+	text-align: center;
+}
+
