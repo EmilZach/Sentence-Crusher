@@ -15,6 +15,25 @@ import datetime
 game_name = 'Sentence Crusher'
 
 
+def print_opening():
+
+    logo_dict = {
+          1:"   ===================================================== ",
+          2:"   \\       Welcome to:                                 \\  ",
+          3:"   /   ____  __      ___  __       __  __              /   ",
+          4:"   \\  |     |__ |\\ |  |  |__ |\\ | |   |__              \\  ",
+          5:"   /   ---  |__ | \\|  |  |__ | \\| |__ |__              /   ",
+          6:"   \\  |___|     ___   __       __      __  __  __      \\  ", 
+          7:"   /           |     |__| |  ||__ |__||__ |__||__      /   ",
+          8:"   \\           |___  |  \\ |__| __||  ||__ |  \\ __|     \\  ",
+          9:"   ====================================================",
+          10:"                                                             " }
+    
+    for i in range(1, 11):
+        print(logo_dict[i])
+        time.sleep(0.05)
+
+
 def points_calc(points, clock_before, string, user_string):
     """ This function calculates the final score based on three
          criteria:
@@ -141,7 +160,9 @@ def new_game():
 
 
 if __name__ == "__main__":
-    user_name = input('Please enter your user name: ').upper()
+    print_opening()
+    user_name = input('   Please enter your user name: ')
+    user_name = user_name.upper()
     new_game()
 
 
@@ -150,6 +171,7 @@ if __name__ == "__main__":
 """
 
 """
+  session 15:45 
   session 17:00 - 17:38        Jonas
   session 12:25 - 12:40        Jonas
   session 00:25 - 01:31        Jonas
