@@ -7,12 +7,15 @@
    Started: 16.03.2016
 
 """
-
+# --- Global modules----
 import time
 import datetime
 
+
+# ---Local modules ---
 import logics
 import graphics
+import database
 
 
 game_name = 'Sentence Crusher'
@@ -45,8 +48,12 @@ def new_game():
 
     # --------------------- LOGIC ----------------------- #
     time_stamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    points = logics.points_calc(points, clock_before, string, user_string, time_stamp, level_name)
-  
+    points, clock_diff = logics.points_calc(points, clock_before, string, user_string, time_stamp, level_name)
+
+    #-------------------- DATABASE -------------------#
+    new_list = [level_name, user_name, points, time_stamp, clock_diff]
+    database.store_data(new_list)
+
     # --------------------  INPUT -------------------- #
     yes_or_no = input("\n  Start again? Yes?")
     if yes_or_no.upper() == "YES" or yes_or_no.upper() == "Y":
@@ -65,7 +72,9 @@ if __name__ == "__main__":
 """
 
 """
-  session 17:20 -
+  sesiion 20:45 - 
+  session 19:40 - 19:50
+  session 17:20 - 18:20        Jonas
   session 15:45 . 16:25
   session 17:00 - 17:38        Jonas
   session 12:25 - 12:40        Jonas
