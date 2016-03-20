@@ -2,32 +2,21 @@ import time
 
 import graphics
 
-def points_calc(points, clock_before, string, user_string, time_stamp, level_name):
-    """ This function calculates the final score based on three
-         criteria:
-           - Time spent - more time less points
-           - Wrong letters - more wrong, less points
-           - Wrong length - more difference, less points
 
-    :param points: Starting value of points. Default 300.
-    :param clock_before: CPU-time just before the player started typing.
-    :param string: This is the text the user tried to match.
-    :param user_string: This is the text that is going to be evaluated
-                        against string.
-    :return: points - the final score is returned.
-    """
-
+def clockdiff_points(points, clock_before):
     # --- Evaluate how much time the user has spent typing ---
-
     clock_after = time.clock()   # checks time after input
     clock_diff = clock_after - clock_before
     if clock_diff <= 5.0:
         pass
     elif clock_diff > 5.0:
         points -= (-50+(clock_diff*10))
-
     points = int(points)
 
+    return points, clock_diff
+
+
+def stringlen_points(points, string, user_string):
     # --- Choose shortest string ---
     if len(string) <= len(user_string):
         shortest_string = len(string)
@@ -43,12 +32,30 @@ def points_calc(points, clock_before, string, user_string, time_stamp, level_nam
             wrong_letters += 1
             points -= 2
 
+    return points, wrong_letters
+
+
+def lengthdiff_points(points, string, user_string):
     # --- Evaluate difference in length -------
     length_diff = abs(len(string) - len(user_string))
     points -= (length_diff*20)
-
     if points < 1:
         points = 1
+
+    return points, length_diff
+
+
+def points_calc(points, clock_before, string, user_string, time_stamp, level_name):
+    """ This function calculates the final score based on three
+         criteria:
+           - Time spent - more time less points
+           - Wrong letters - more wrong, less points
+           - Wrong length - more difference, less points 
+        And then it prints all the stats using graphics.print_stats()"""
+
+    points, clock_diff = clockdiff_points(points, clock_before)
+    points, wrong_letters = stringlen_points(points, string, user_string)
+    points, length_diff = lengthdiff_points(points, string, user_string)
 
     graphics.print_stats(clock_diff, wrong_letters, length_diff, points, time_stamp, level_name)
 

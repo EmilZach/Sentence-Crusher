@@ -45,14 +45,14 @@ def countdown_321():
 
 def print_stats(clock_diff, wrong_letters, length_diff, points, time_stamp, level_name):
 
-    print("\n LEVEL {0} STATISTICS:                 \n"
-          "                                         \n"
-          "You spent {1:.2f} seconds typing on this.\n"
-          "You typed {2} wrong letters, and the     \n"
-          " difference in lenght was {3}.           \n"
-          "                                         \n"
-          "TOTAL SCORE: {4}   points                \n"
-          "  Date: {5}                              \n"
+    print("\n LEVEL {0} STATISTICS:                      \n"
+          "                                               \n"
+          "You spent {1:.2f} seconds typing on this level.\n"
+          "You typed {2} wrong letter(s), and the          \n"
+          " difference in lenght was {3} letter(s).        \n"
+          "                                               \n"
+          "TOTAL SCORE: {4}   points                       \n"
+          "  Date: {5}                                     \n"
           "".format(level_name, clock_diff, wrong_letters, length_diff, points, time_stamp))
 
 
