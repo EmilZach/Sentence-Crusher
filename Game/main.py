@@ -171,7 +171,7 @@ if __name__ == "__main__":
 """
 
 """
-  session 15:45 
+  session 15:45
   session 17:00 - 17:38        Jonas
   session 12:25 - 12:40        Jonas
   session 00:25 - 01:31        Jonas
