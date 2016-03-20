@@ -7,108 +7,18 @@
    Started: 16.03.2016
 
 """
-
+# --- Global modules----
 import time
 import datetime
 
 
+# ---Local modules ---
+import logics
+import graphics
+import database
+
+
 game_name = 'Sentence Crusher'
-
-
-def print_opening():
-
-    logo_dict = {
-          1:"   ===================================================== ",
-          2:"   \\       Welcome to:                                 \\  ",
-          3:"   /   ____  __      ___  __       __  __              /   ",
-          4:"   \\  |     |__ |\\ |  |  |__ |\\ | |   |__              \\  ",
-          5:"   /   ---  |__ | \\|  |  |__ | \\| |__ |__              /   ",
-          6:"   \\  |___|     ___   __       __      __  __  __      \\  ", 
-          7:"   /           |     |__| |  ||__ |__||__ |__||__      /   ",
-          8:"   \\           |___  |  \\ |__| __||  ||__ |  \\ __|     \\  ",
-          9:"   ====================================================",
-          10:"                                                             " }
-    
-    for i in range(1, 11):
-        print(logo_dict[i])
-        time.sleep(0.05)
-
-
-def points_calc(points, clock_before, string, user_string):
-    """ This function calculates the final score based on three
-         criteria:
-           - Time spent - more time less points
-           - Wrong letters - more wrong, less points
-           - Wrong length - more difference, less points
-
-    :param points: Starting value of points. Default 300.
-    :param clock_before: CPU-time just before the player started typing.
-    :param string: This is the text the user tried to match.
-    :param user_string: This is the text that is going to be evaluated
-                        against string.
-    :return: points - the final score is returned.
-    """
-
-    # --- Evaluate how much time the user has spent typing ---
-    # --- Penalty = - 10 points for each second after 5 seconds ---
-
-    clock_after = time.clock()   # checks time after input
-    clock_diff = clock_after - clock_before
-    if clock_diff <= 5.0:
-        pass
-    elif clock_diff > 5.0:
-        points -= (-50+(clock_diff*10))
-
-    points = int(points)
-    print("Clock_diff: %.2f sekund." % clock_diff)  
-    print("After clock_diff: ", points, "points")   # debug data
-    
-    # --- Evaluate if each letter is correct ----
-    # --- Penalty 2 points for each letter wrong----
-    wrong_letter = 0
-
-    # --- Choose shortest string ---
-    if len(string) <= len(user_string):
-        shortest_string = len(string)
-    else:
-        shortest_string = len(user_string)
-
-    # --- Use shortest string in loop below ---
-    for i in range(shortest_string):
-        if string[i] == user_string[i]:
-            pass
-        else:
-            wrong_letter += 1
-            points -= 2
-    print("Wrong letters: ", wrong_letter)
-    print("After letter check: ", points, "points")    # debug data
-
-    # --- Evaluate difference in length -------
-    # --- Penalty 20 points for each letter difference ---
-    length_diff = abs(len(string) - len(user_string))
-    points -= (length_diff*20)
-    print("Length_diff:  ", length_diff)
-    print("After length_diff: ", points, "points")   # debug data
-
-    if points < 1:
-        points = 1
-
-    return points
-
-
-def pick_string_level(level):
-
-    string_dict = {1: "Object-oriented programming is an exceptionally bad idea "
-                      "which could only have originated in California. - Edsger Dijkstra",
-                   2: "Good, better, best. Never let it rest. 'Til your good is better"
-                      " and your better is best.",
-                   3: "You might not think that programmers are artists, but programming"
-                      " is an extremely creative profession. It's logic-based creativity."
-                      " - John Romero",
-                   4: "Low-level programming is good for the programmer's soul. - John Carmack"
-                   }
-    
-    return string_dict[level]
 
 
 def new_game():
@@ -118,18 +28,13 @@ def new_game():
 
     # --- User picks level 1, 2, 3 or 4 ----
     level_name = int(input("Which level do you want to play; level[1, 2, 3, 4] "))
-    string = pick_string_level(level_name)
+    string = graphics.get_string_level(level_name)
 
     # --- User is asked to press enter to continue ---
     input("\n\tNow, press enter and get ready to write!")
     
     # --------------------  GRAPHICS -------------------- #
-    for i in (3, 2, 1):
-        print("\t", i)
-        time.sleep(1)
-
-    print("\tGo!!\n")
-    time.sleep(1)
+    graphics.countdown_321()
     clock_before = time.clock()  # checks time before input
     
     # --------------------  INPUT -------------------- #
@@ -141,18 +46,14 @@ def new_game():
     print(string)
     user_string = input()
 
-    print("\n  LEVEL %d  STATS" % level_name, "\n")
-
-    # --------------------- LOGIC ----------------------- # 
-    points = points_calc(points, clock_before, string, user_string)
-
-    # Timestamp
+    # --------------------- LOGIC ----------------------- #
     time_stamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    points, clock_diff = logics.points_calc(points, clock_before, string, user_string, time_stamp, level_name)
 
-    # --------------------  GRAPHICS -------------------- #
-    print("Total points: ", int(points), "points")
-    print("Time:", time_stamp)
-    
+    #-------------------- DATABASE -------------------#
+    new_list = [level_name, user_name, points, time_stamp, clock_diff]
+    database.store_data(new_list)
+
     # --------------------  INPUT -------------------- #
     yes_or_no = input("\n  Start again? Yes?")
     if yes_or_no.upper() == "YES" or yes_or_no.upper() == "Y":
@@ -160,7 +61,7 @@ def new_game():
 
 
 if __name__ == "__main__":
-    print_opening()
+    graphics.print_opening()
     user_name = input('   Please enter your user name: ')
     user_name = user_name.upper()
     new_game()
@@ -171,8 +72,6 @@ if __name__ == "__main__":
 """
 
 """
-  session 15:45
-  session 17:00 - 17:38        Jonas
-  session 12:25 - 12:40        Jonas
-  session 00:25 - 01:31        Jonas
+  session 00:30
+
 """
