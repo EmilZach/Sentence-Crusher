@@ -7,13 +7,13 @@
    Started: 16.03.2016
 
 """
-# --- Global modules----
+# --- Global modules ---
 import time
 import datetime
 import random
 
 
-# ---Local modules ---
+# --- Local modules ---
 import logics
 import graphics
 import database
@@ -26,23 +26,19 @@ def new_game():
     # -------------------- INIT/input -------------------- #
     points = 300
     print("\nHello, %s " % user_name)
-
+    
     # --- User picks level 1, 2, 3 or 4 ----
-    level_name = int(input("Which level do you want to play; level[1, 2, 3, 4] or 5 for a random level."))
+
+    try:
+        level_name = int(input("Which level do you want to play; level[1, 2, 3, 4] or 5 for a random level."))
+    except ValueError:
+        print("You have to navigate using the numbers 1 to 5. Try again.")
+        new_game()
+
     if level_name == 5:
         string = graphics.get_string_level(random.randrange(1,5))
-    elif level_name == 1 or 2 or 3 or 4:
-        string = graphics.get_string_level(level_name)
     else:
-        print("You have to choose a level from 1 to 4, or choose 5 for a random level. Try again.")
-        
-        '''
-
-        As long as the user inputs something that is not an integer, the program will crash. 
-        It does not help putting new_game() so it can start again. It will just crash. The fix may be to use exception handler and I don't have the time to use it right now.
-        I am going to fix it when I come home again. -- Emil
-
-        '''
+        string = graphics.get_string_level(level_name)
 
     # --- User is asked to press enter to continue ---
     input("\n\tNow, press enter and get ready to write!")
@@ -59,7 +55,7 @@ def new_game():
           -------------------------------------- Jonas --------   """
     print(string)
     user_string = input()
-
+    
     # --------------------- LOGIC ----------------------- #
     time_stamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     points, clock_diff = logics.points_calc(points, clock_before, string, user_string, time_stamp, level_name)
