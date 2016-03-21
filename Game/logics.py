@@ -10,7 +10,7 @@ def addclockdiff_points(points, clock_before):
     if clock_diff <= 5.0:
         pass
     elif clock_diff > 5.0:
-        points -= (-50+(clock_diff*10))
+        points -= (-50+(clock_diff*6))
     points = int(points)
 
     return points, clock_diff
