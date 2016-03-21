@@ -50,7 +50,7 @@ def new_game():
     time_stamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     points, clock_diff = logics.points_calc(points, clock_before, string, user_string, time_stamp, level_name)
 
-    #---------------- DATABASE DUMP -------  -----------#
+    # ---------------- DATABASE DUMP -------  -----------#
     new_list = [user_name, points, time_stamp, clock_diff, level_name, game_name]
     database.store_data(new_list)
 
