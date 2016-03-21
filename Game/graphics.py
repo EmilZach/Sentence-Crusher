@@ -37,7 +37,7 @@ def get_string_level(level):
 def countdown_321():
     for i in (3, 2, 1):
         print("\t", i)
-        time.sleep(0.1)
+        time.sleep(1)
 
     print("\tGo!!\n")
     time.sleep(1)
