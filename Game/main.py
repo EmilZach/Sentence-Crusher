@@ -10,6 +10,7 @@
 # --- Global modules----
 import time
 import datetime
+import random
 
 
 # ---Local modules ---
@@ -22,22 +23,35 @@ game_name = 'Sentence Crushers'
 
 
 def new_game():
-    # --------------------  INIT/input -------------------- #
+    # -------------------- INIT/input -------------------- #
     points = 300
     print("\nHello, %s " % user_name)
 
     # --- User picks level 1, 2, 3 or 4 ----
-    level_name = int(input("Which level do you want to play; level[1, 2, 3, 4] "))
-    string = graphics.get_string_level(level_name)
+    level_name = int(input("Which level do you want to play; level[1, 2, 3, 4] or 5 for a random level."))
+    if level_name == 5:
+        string = graphics.get_string_level(random.randrange(1,5))
+    elif level_name == 1 or 2 or 3 or 4:
+        string = graphics.get_string_level(level_name)
+    else:
+        print("You have to choose a level from 1 to 4, or choose 5 for a random level. Try again.")
+        
+        '''
+
+        As long as the user inputs something that is not an integer, the program will crash. 
+        It does not help putting new_game() so it can start again. It will just crash. The fix may be to use exception handler and I don't have the time to use it right now.
+        I am going to fix it when I come home again. -- Emil
+
+        '''
 
     # --- User is asked to press enter to continue ---
     input("\n\tNow, press enter and get ready to write!")
     
-    # --------------------  GRAPHICS -------------------- #
+    # -------------------- GRAPHICS -------------------- #
     graphics.countdown_321()
     clock_before = time.clock()  # checks time before input
     
-    # --------------------  INPUT -------------------- #
+    # -------------------- INPUT -------------------- #
     """ Her er det at selve spillet foregår. Spilleren får
         vist en tekstbit, som spiller skal skrive selv, så fort
          som overhodet mulig. For hvert sekund som går etter 5 sek
@@ -54,10 +68,13 @@ def new_game():
     new_list = [user_name, points, time_stamp, clock_diff, level_name, game_name]
     database.store_data(new_list)
 
-    # --------------------  INPUT -------------------- #
+    # -------------------- INPUT -------------------- #
     yes_or_no = input("\n  Start again? Yes?")
     if yes_or_no.upper() == "YES" or yes_or_no.upper() == "Y":
         new_game()
+
+def start_again():
+    new_game()
 
 
 if __name__ == "__main__":
