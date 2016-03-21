@@ -30,7 +30,7 @@ def read_into_dict(level):
 
 def write_from_dict(level, highscore_dict):
     """
-      Function writes from the modified dictionary, 
+      Function writes from the modified dictionary,
        back to the file in this format: 
         name, points, Time-stamp, Duration, level, game\n
         -------------------------- Jonas ----
