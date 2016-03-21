@@ -21,14 +21,14 @@ def print_opening():
 
 def get_string_level(level):
 
-    string_dict = {1: "Object-oriented programming is an exceptionally bad idea "
-                      "which could only have originated in California. - Edsger Dijkstra",
-                   2: "Good, better, best. Never let it rest. 'Til your good is better"
-                      " and your better is best.",
-                   3: "You might not think that programmers are artists, but programming"
-                      " is an extremely creative profession. It's logic-based creativity."
-                      " - John Romero",
-                   4: "Low-level programming is good for the programmer's soul. - John Carmack"
+    string_dict = {1: "\"Object-oriented programming is an exceptionally bad idea"
+                      " which could only have originated in California.\" - Edsger Dijkstra",
+                   2: "Good, better, best. Never let it rest. 'Til your good is"
+                      " better and your better is best.",
+                   3: "\"You might not think that programmers are artists, but"
+                      " programming is an extremely creative profession. It's logic-based creativity.\" - John Romero",
+                   4: "\"Low-level programming is good for the programmer's soul.\""
+                      " - John Carmack"
                    }
     
     return string_dict[level]
