@@ -28,17 +28,17 @@ def new_game():
     print("\nHello, %s " % user_name)
     
     # --- User picks level 1, 2, 3 or 4 ----
+    while True:
+        try:
+            level_name = int(input("Which level do you want to play; level[1, 2, 3, 4] or 5 for a random level."))
+            if level_name == 5:
+                string = graphics.get_string_level(random.randrange(1,5))
+            else:
+                string = graphics.get_string_level(level_name)
+            break
 
-    try:
-        level_name = int(input("Which level do you want to play; level[1, 2, 3, 4] or 5 for a random level."))
-    except ValueError:
-        print("You have to navigate using the numbers 1 to 5. Try again.")
-        new_game()
-
-    if level_name == 5:
-        string = graphics.get_string_level(random.randrange(1,5))
-    else:
-        string = graphics.get_string_level(level_name)
+        except (ValueError, KeyError):
+            print("You have to navigate using the numbers 1 to 5. Try again.")
 
     # --- User is asked to press enter to continue ---
     input("\n\tNow, press enter and get ready to write!")
