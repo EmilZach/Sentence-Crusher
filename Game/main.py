@@ -32,15 +32,16 @@ def new_game():
         try:
             level_name = int(input("Which level do you want to play; level[1, 2, 3, 4] or 5 for a random level."))
             if level_name == 5:
-                string = graphics.get_string_level(random.randrange(1,5))
+                level_name = random.randrange(1,5)
             else:
-                string = graphics.get_string_level(level_name)
+                pass  
             break
 
         except (ValueError, KeyError):
             print("You have to navigate using the numbers 1 to 5. Try again.")
 
     # -------------------- GRAPHICS -------------------- #
+    string = graphics.get_string_level(level_name)  
     graphics.print_highscore(level_name)
     
     input("\n\tNow, press enter and get ready to write!")
