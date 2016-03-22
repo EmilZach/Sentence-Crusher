@@ -75,6 +75,39 @@ def store_data(new_data):
     write_from_dict(level, highscore_dict)
 
 
+def getkey(item):
+    return item[0]
+
+
+def get_sorted_highscore(level):
+    """
+      Function gets data from highscore_dict which has
+       all saved data about the current level.
+        Returns a sorted list of tuples, with names
+         and scores from highest to lowest.
+          And the lenght of said list.
+         ------------------- Jonas --------------- 
+    """
+    
+    level_data = read_into_dict(level)
+
+    liste = []
+
+    while True:
+        try:
+            getit = level_data.popitem()
+            get_name = getit[0]
+            get_pts = getit[1][0]
+            tup = (get_name, get_pts)
+            liste.append(tup)
+        except KeyError:
+            break
+
+    liste_sort = sorted(liste, key=getkey, reverse=True)
+
+    return liste_sort
+
+
 
 
 

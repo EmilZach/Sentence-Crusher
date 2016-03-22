@@ -1,5 +1,7 @@
 import time
 
+import database
+
 
 def print_opening():
     logo_dict = {
@@ -54,6 +56,30 @@ def print_stats(clock_diff, wrong_letters, length_diff, points, time_stamp, leve
           "TOTAL SCORE: {4}   points                       \n"
           "  Date: {5}                                     \n"
           "".format(level_name, clock_diff, wrong_letters, length_diff, points, time_stamp))
+
+
+def print_highscore(level):
+    score_table = database.get_sorted_highscore(level)
+
+    print('                           \n'
+          ' ========================= \n'
+          '   HIGHSCORE: LEVEL {0})   \n'
+          ' ========================= \n'
+          ''.format(level))
+
+    for tup in score_table:
+        tup = str(tup)
+        tup = tup.replace('(', '')
+        tup = tup.replace(')', '')
+        tup = tup.replace('\'', '')
+        tup = '   ' + tup + ' p'
+        print(tup)
+        time.sleep(0.1)
+
+    print(' ========================== \n'
+          '                              ')
+
+
 
 
 

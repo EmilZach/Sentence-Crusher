@@ -40,10 +40,11 @@ def new_game():
         except (ValueError, KeyError):
             print("You have to navigate using the numbers 1 to 5. Try again.")
 
-    # --- User is asked to press enter to continue ---
+    # -------------------- GRAPHICS -------------------- #
+    graphics.print_highscore(level_name)
+    
     input("\n\tNow, press enter and get ready to write!")
     
-    # -------------------- GRAPHICS -------------------- #
     graphics.countdown_321()
     clock_before = time.clock()  # checks time before input
     
@@ -68,6 +69,7 @@ def new_game():
     yes_or_no = input("\n  Start again? Yes?")
     if yes_or_no.upper() == "YES" or yes_or_no.upper() == "Y":
         new_game()
+
 
 def start_again():
     new_game()
