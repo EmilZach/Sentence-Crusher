@@ -71,7 +71,7 @@ def store_data(new_data):
     highscore_dict = read_into_dict(level)
 
     # Test if new score is better than old highscore
-    old_score = highscore_dict[new_data[0]][0]
+    old_score = int(highscore_dict[new_data[0]][0])
     new_score = new_data[1]
     if new_score > old_score:
         # dictionary is modified with new data
