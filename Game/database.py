@@ -65,14 +65,21 @@ def store_data(new_data):
     - level_int   index [4]
     - Game_name   index [5]
     ------------ Jonas ---"""
-    level = new_data[4]     #Gets a integer between 1-4
+    level = new_data[4]     # Gets a integer between 1-4
 
     # read_into_dict() creates a dictionary from file-data
     highscore_dict = read_into_dict(level)
-    # dictionary is modified with new data
-    highscore_dict[new_data[0]] = [new_data[1:]]
-    # The modified dictionary is written back to the file.
-    write_from_dict(level, highscore_dict)
+
+    # Test if new score is better than old highscore
+    old_score = highscore_dict[new_data[0]][0]
+    new_score = new_data[1]
+    if new_score > old_score:
+        # dictionary is modified with new data
+        highscore_dict[new_data[0]] = [new_data[1:]]
+        # The modified dictionary is written back to the file.
+        write_from_dict(level, highscore_dict)
+    else: 
+        pass
 
 
 def getkey(item):
