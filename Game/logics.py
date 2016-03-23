@@ -1,3 +1,4 @@
+# see http://www.python.org/peps/pep-0263.html 
 import time
 
 import graphics

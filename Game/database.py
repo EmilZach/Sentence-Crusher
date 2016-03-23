@@ -15,6 +15,8 @@ def read_into_dict(level):
     while True:
         line_cache_raw = file.readline()               # Gets a string
         line_cache = line_cache_raw.replace("\\n", "") # Removes "\n" from string 
+                                                      # Robin: her kommer rstrip() inn som et bra triks
+        #line_cache = line_cache_raw.rstrip()
         line_list = line_cache.split(',')              # Makes string into list
         
         if line_cache == "":                           # This means end of file
@@ -65,6 +67,8 @@ def store_data(new_data):
     - level_int   index [4]
     - Game_name   index [5]
     ------------ Jonas ---"""
+    # Denne formaliseringen av datastrukturen, med regler for hva som må være der etc
+    # kan være fordelsaktig å ha i en klasse.
     level = new_data[4]     # Gets a integer between 1-4
 
     # read_into_dict() creates a dictionary from file-data

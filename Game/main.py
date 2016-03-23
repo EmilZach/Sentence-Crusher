@@ -22,7 +22,7 @@ import database
 game_name = 'Sentence Crushers'
 
 
-def new_game():
+def new_game(): #user_name bør komme som parameter, og ikke som modulvariabel.
     # -------------------- INIT/input -------------------- #
     points = 300
     print("\nHello, %s " % user_name)
@@ -60,7 +60,8 @@ def new_game():
     
     # --------------------- LOGIC ----------------------- #
     time_stamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    points, clock_diff = logics.points_calc(points, clock_before, string, user_string, time_stamp, level_name)
+    points, clock_diff = logics.points_calc(points, clock_before, 
+                            string, user_string, time_stamp, level_name)
 
     # ---------------- DATABASE DUMP -------  -----------#
     new_list = [user_name, points, time_stamp, clock_diff, level_name, game_name]
