@@ -72,10 +72,6 @@ def new_game():
         new_game()
 
 
-def start_again():
-    new_game()
-
-
 if __name__ == "__main__":
     graphics.print_opening()
     user_name = input('   Please enter your user name: ')
