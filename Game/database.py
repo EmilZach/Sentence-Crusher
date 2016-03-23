@@ -1,4 +1,5 @@
-
+#!/usr/bin/python
+#coding: utf-8
 
 def read_into_dict(level):
     """
