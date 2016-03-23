@@ -41,7 +41,7 @@ def new_game():
             print("You have to navigate using the numbers 1 to 5. Try again.")
 
     # -------------------- GRAPHICS -------------------- #
-    string = graphics.get_string_level(level_name)  
+    string = graphics.get_string(level_name)  
     graphics.print_highscore(level_name)
     
     input("\n\tNow, press enter and get ready to write!")

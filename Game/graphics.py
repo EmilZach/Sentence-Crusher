@@ -21,7 +21,7 @@ def print_opening():
         time.sleep(0.05)
 
 
-def get_string_level(level):
+def get_string(level):
 
     string_dict = {1: "\"Object-oriented programming is an exceptionally bad idea"
                       " which could only have originated in California.\" - Edsger Dijkstra",
