@@ -3,9 +3,10 @@
 
 import time
 
-import graphics
-
+from graphics import GfxGuy
 import requests
+
+Gfx = GfxGuy()
 
 
 def addclockdiff_points(points, clock_before):
@@ -62,7 +63,7 @@ def points_calc(points, clock_before, string, user_string, time_stamp, level_nam
     points, wrong_letters = addstringlen_points(points, string, user_string)
     points, length_diff = addlengthdiff_points(points, string, user_string)
 
-    graphics.print_stats(clock_diff, wrong_letters, length_diff, points, time_stamp, level_name)
+    Gfx.print_stats(clock_diff, wrong_letters, length_diff, points, time_stamp, level_name)
 
     return points, clock_diff
 
