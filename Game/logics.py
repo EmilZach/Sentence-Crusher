@@ -5,6 +5,8 @@ import time
 
 import graphics
 
+import requests
+
 
 def addclockdiff_points(points, clock_before):
     # --- Evaluate how much time the user has spent typing ---
@@ -63,3 +65,20 @@ def points_calc(points, clock_before, string, user_string, time_stamp, level_nam
     graphics.print_stats(clock_diff, wrong_letters, length_diff, points, time_stamp, level_name)
 
     return points, clock_diff
+
+
+# POST data to server
+def post_data(data):
+    """
+    Post game data to server
+    :return: listing
+    """
+
+    url = "http://127.0.0.1:5000/collect_data"
+
+    data = data
+
+    r = requests.post(url, data=data)
+
+    if r:
+        return r.text

@@ -66,6 +66,16 @@ def new_game():
     new_list = [user_name, points, time_stamp, clock_diff, level_name, game_name]
     database.store_data(new_list)
 
+    # ---------------- DATA TO SERVER -------  -----------#
+    # Structure data to be sent to server
+    data = dict(game=game_name, level=level_name, score=points, player=user_name, timestamp=time_stamp)
+
+    # Send data to server
+    listing = logics.post_data(data)
+
+    # Print returned data from server
+    print('Listing is:\n', listing)
+
     # -------------------- INPUT -------------------- #
     yes_or_no = input("\n  Start again? Yes?")
     if yes_or_no.upper() == "YES" or yes_or_no.upper() == "Y":
