@@ -2,56 +2,53 @@
 #coding: utf-8
 
 import time
-
-from graphics import GfxGuy
 import requests
 
-Gfx = GfxGuy()
+import graphics
+import guys
 
 
-def addclockdiff_points(points, clock_before):
+
+def addclockdiff_points(D):
     # --- Evaluate how much time the user has spent typing ---
-    clock_after = time.clock()   # checks time after input
-    clock_diff = clock_after - clock_before
-    if clock_diff <= 5.0:
+    D.clock_after = time.clock()   # checks time after input
+    D.clock_diff = D.clock_after - D.clock_before
+    if D.clock_diff <= 5.0:
         pass
-    elif clock_diff > 5.0:
-        points -= (-50+(clock_diff*6))
-    points = int(points)
+    elif D.clock_diff > 5.0:
+        D.points -= (-50+(D.clock_diff*6))
+    D.points = int(D.points)
+    return 0
 
-    return points, clock_diff
 
-
-def addstringlen_points(points, string, user_string):
+def addstringlen_points(D):
     # --- Choose shortest string ---
-    if len(string) <= len(user_string):
-        shortest_string = len(string)
+    if len(D.string) <= len(D.user_string):
+        shortest_string = len(D.string)
     else:
-        shortest_string = len(user_string)
+        shortest_string = len(D.user_string)
 
     # --- Evaluate how many letters are wrong ----
-    wrong_letters = 0
+    D.wrong_letters = 0
     for i in range(shortest_string):
-        if string[i] == user_string[i]:
+        if D.string[i] == D.user_string[i]:
             pass
         else:
-            wrong_letters += 1
-            points -= 2
+            D.wrong_letters += 1
+            D.points -= 2
+    return 0
 
-    return points, wrong_letters
 
-
-def addlengthdiff_points(points, string, user_string):
+def addlengthdiff_points(D):
     # --- Evaluate difference in length -------
-    length_diff = abs(len(string) - len(user_string))
-    points -= (length_diff*20)
-    if points < 1:
-        points = 1
+    D.length_diff = abs(len(D.string) - len(D.user_string))
+    D.points -= (D.length_diff*20)
+    if D.points < 1:
+        D.points = 1
+    return 0
 
-    return points, length_diff
 
-
-def points_calc(points, clock_before, string, user_string, time_stamp, level_name):
+def points_calc(D, Gfx):
     """ This function calculates the final score based on three
          criteria:
            - Time spent - more time less points
@@ -59,13 +56,13 @@ def points_calc(points, clock_before, string, user_string, time_stamp, level_nam
            - Wrong length - more difference, less points 
         And then it prints all the stats using graphics.print_stats()"""
 
-    points, clock_diff = addclockdiff_points(points, clock_before)
-    points, wrong_letters = addstringlen_points(points, string, user_string)
-    points, length_diff = addlengthdiff_points(points, string, user_string)
+    addclockdiff_points(D)
+    addstringlen_points(D)
+    addlengthdiff_points(D)
 
-    Gfx.print_stats(clock_diff, wrong_letters, length_diff, points, time_stamp, level_name)
+    Gfx.print_stats(D)
 
-    return points, clock_diff
+    return 0
 
 
 # POST data to server

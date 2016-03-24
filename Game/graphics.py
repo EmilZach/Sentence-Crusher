@@ -6,9 +6,11 @@ import time
 import database
 
 
+
+
 class GfxGuy():
 
-    def __init__():
+    def __init__(self):
         print('GfxGuy initialized')
 
     def print_opening(self):
@@ -53,7 +55,7 @@ class GfxGuy():
         time.sleep(1)
 
 
-    def print_stats(self, clock_diff, wrong_letters, length_diff, points, time_stamp, level_name):
+    def print_stats(self, D):
 
         print("\n LEVEL {0} STATISTICS:                      \n"
               "                                               \n"
@@ -63,7 +65,7 @@ class GfxGuy():
               "                                               \n"
               "TOTAL SCORE: {4}   points                       \n"
               "  Date: {5}                                     \n"
-              "".format(level_name, clock_diff, wrong_letters, length_diff, points, time_stamp))
+              "".format(D.level, D.clock_diff, D.wrong_letters, D.length_diff, D.points, D.time_stamp))
 
 
     def print_highscore(self, level):
