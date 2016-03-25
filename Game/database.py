@@ -1,7 +1,29 @@
 #!/usr/bin/python
 #coding: utf-8
 
-def read_into_dict(level):
+
+def store_data(D):
+    """
+    ------------ Jonas ---"""
+    # read_into_dict() creates a dictionary from file-data
+    read_from_file(D, D.level)
+
+    # Test if new score is better than old highscore
+    try: 
+        old_points = int(D.highscore_dict[D.user])
+    except KeyError:
+        old_points = 0
+    
+    if D.points > old_points:
+        # dictionary is modified with new data
+        D.highscore_dict[D.user] = [D.points]
+        # The modified dictionary is written back to the file.
+        write_to_file(D, D.level)
+    else: 
+        pass
+
+
+def read_from_file(D, level):
     """
       Function will return a dictionary. 
        The dictionary will contain the entire high-score
@@ -12,7 +34,6 @@ def read_into_dict(level):
            ----------------------------- Jonas ----      """
     file = open('Highscorelists\level{0}.txt'.format(level), 'r')
     
-    highscore_dict = {} 
     while True:
         line_cache_raw = file.readline()               # Gets a string
         line_cache = line_cache_raw.replace("\\n", "") # Removes "\n" from string 
@@ -22,13 +43,12 @@ def read_into_dict(level):
             break
         else:
             #   DICTIONARY   [KEY]       = [VALUE1, VALUE2, VALUE3...]
-            highscore_dict[line_list[0]] = line_list[1:]
+            D.highscore_dict[line_list[0]] = line_list[1:]
 
     file.close()
-    return highscore_dict
 
 
-def write_from_dict(level, highscore_dict):
+def write_to_file(D, level):
     """
       Function writes from the modified dictionary,
        back to the file in this format: 
@@ -38,7 +58,7 @@ def write_from_dict(level, highscore_dict):
     file = open('Highscorelists\level{0}.txt'.format(level), 'w')
     while True: 
         try:
-            item_pop = str(highscore_dict.popitem())
+            item_pop = str(D.highscore_dict.popitem())
             #Format
             item_pop = item_pop.replace('"', '')
             item_pop = item_pop.replace('(', '')
@@ -55,35 +75,6 @@ def write_from_dict(level, highscore_dict):
 
     file.close()
     return 0
-
-
-def store_data(new_data):
-    """ new_data is a list of:
-    - user_name   index [0]
-    - points      index [1]
-    - time_stamp  index [2]
-    - clock_diff  index [3]
-    - level_int   index [4]
-    - Game_name   index [5]
-    ------------ Jonas ---"""
-    level = new_data[4]     # Gets a integer between 1-4
-
-    # read_into_dict() creates a dictionary from file-data
-    highscore_dict = read_into_dict(level)
-
-    # Test if new score is better than old highscore
-    try: 
-        old_score = int(highscore_dict[new_data[0]][0])
-    except KeyError:
-        old_score = 0
-    new_score = new_data[1]
-    if new_score > old_score:
-        # dictionary is modified with new data
-        highscore_dict[new_data[0]] = [new_data[1:]]
-        # The modified dictionary is written back to the file.
-        write_from_dict(level, highscore_dict)
-    else: 
-        pass
 
 
 def getkey(item):

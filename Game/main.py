@@ -21,11 +21,9 @@ from guys import GameGuy
 from graphics import GfxGuy
 
 D = DataGuy()
-Game = GameGuy()
 Gfx = GfxGuy()
+Game = GameGuy()
 
-
-game_name = 'Sentence Crushers'
 
 def new_game():
     # -------------------- INIT/input -------------------- #
@@ -48,18 +46,13 @@ def new_game():
     # --------------------- LOGIC ----------------------- #
     D.store_datetime()
      
-    logics.points_calc(D, Gfx)
+    logics.calc_points(D, Gfx)
 
     # ---------------- DATABASE DUMP -------  -----------#
-    new_list = [DataGuy.user_name, points, time_stamp, clock_diff, DataGuy.level_name, game_name]
-    database.store_data(new_list)
+    database.store_data(D)
 
     # ---------------- DATA TO SERVER -------  -----------#
-    # Structure data to be sent to server
-    data = dict(game=game_name, level=level_name, score=points, player=user_name, timestamp=time_stamp)
-
-    # Send data to server
-    listing = logics.post_data(data)
+    listing = logics.post_data(D)
 
     # Print returned data from server
     print('Listing is:\n', listing)

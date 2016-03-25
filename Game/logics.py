@@ -48,7 +48,7 @@ def addlengthdiff_points(D):
     return 0
 
 
-def points_calc(D, Gfx):
+def calc_points(D, Gfx):
     """ This function calculates the final score based on three
          criteria:
            - Time spent - more time less points
@@ -66,7 +66,7 @@ def points_calc(D, Gfx):
 
 
 # POST data to server
-def post_data(data):
+def post_data(D):
     """
     Post game data to server
     :return: listing
