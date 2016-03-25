@@ -11,7 +11,9 @@ class DataGuy():
         self.points = 300           # Begins at 300 which is maximum score. 
         self.clock_diff = 0.0       # Time spent typing
         self.time_stamp = ''        # Time stamp when user have submitted text
+
         
+
         # --- Data which is only in memory ---
         self.clock_before = 0.00    # Clock just before textinput 
         self.clock_after = 0.00     # Clock when user have submitted text

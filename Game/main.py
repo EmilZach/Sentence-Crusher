@@ -45,7 +45,6 @@ def new_game():
     
     # --------------------- LOGIC ----------------------- #
     D.store_datetime()
-     
     logics.calc_points(D, Gfx)
 
     # ---------------- DATABASE DUMP -------  -----------#
