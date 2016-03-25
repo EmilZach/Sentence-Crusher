@@ -4,19 +4,25 @@
 import requests
 
 def store_data(D):
-    """
-    ------------ Jonas ---"""
-    # read_into_dict() creates a dictionary from file-data
+    """ Tasks:
+        1. Read old data from file.
+        2. Compare old data vs new data
+        3. Store new data if old points is worse, or 
+            non-existent.
+    ------------------------ Jonas ---"""
+
+    # Task 1  - (This has already been done in get_sorted_highscore())
     read_from_file(D, D.level)
 
-    # Test if new score is better than old highscore
+    # Task 2
     try: 
         old_points = int(D.highscore_dict[D.user][0])
     except KeyError:
         old_points = 0
     
     if D.points > old_points:
-        # dictionary is modified with new data
+        # Task 3    
+        D.store_new_data()
         D.highscore_dict[D.user] = D.new_data
         write_to_file(D, D.level)
 
@@ -28,8 +34,8 @@ def store_data(D):
 def read_from_file(D, level):
     """
       Function will return a dictionary. 
-       The dictionary will contain the entire high-score
-        list for the current level like this: 
+       The dictionary will contain the entire dataset
+         for the current level like this: 
          { Name1: [Points, Time-stamp, Duration, level, game],
            Name2: [Points, Time-stamp, Duration, level, game] }
            ....

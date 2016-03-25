@@ -16,9 +16,7 @@ import random
 import logics
 import database
 
-from guys import DataGuy
-from guys import GameGuy
-from guys import GfxGuy
+from guys import DataGuy, GameGuy, GfxGuy
 
 D = DataGuy()
 Gfx = GfxGuy()
@@ -28,33 +26,31 @@ Game = GameGuy()
 def new_game():
     # -------------------- INIT/input -------------------- #
     print("\nHello, %s " % D.user)
-    D.level = Game.get_level()           
+    Game.user_input_level(D)           
 
     # -------------------- GRAPHICS -------------------- #
-    Gfx.print_highscore(D, D.level)              
+    Gfx.print_highscore(D)              
     
     input("\n\tNow, press enter and get ready to write!")
     
     Gfx.countdown_321()
-    D.clock_before = time.clock() 
-    
+    D.store_clock_before()
     # -------------------- CORE GAME -------------------- #
-    Gfx.get_string(D, D.level)  
-    D.user_string = input()
+    Gfx.show_string(D)  
+    Game.input_user_string(D)
     
     # --------------------- LOGIC ----------------------- #
+    D.store_clock_after()
     D.store_datetime()
     logics.calc_points(D, Gfx)
 
-    # ---------------- DATABASE DUMP -------  -----------#
+    # ---------------- DATABASE DUMP -----------------#
     database.store_data(D)
 
-    # ---------------- DATA TO SERVER -------  -----------#
+    # ---------------- DATA TO SERVER ----------------#
     listing = database.post_data(D)
-
-    # Print returned data from server
     print('Listing is:\n', listing)
-
+ 
     # -------------------- INPUT -------------------- #
     yes_or_no = input("\n  Start again? Yes?")
     if yes_or_no.upper() == "YES" or yes_or_no.upper() == "Y":
