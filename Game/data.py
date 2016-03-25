@@ -5,7 +5,8 @@
 import time
 import random
 import datetime
-import requests
+import request
+import os
 
 
 class DataGuy:
@@ -178,7 +179,7 @@ class DatabaseGuy:
                Name2: [Points, Time-stamp, Duration, level, game] }
                ....
                ----------------------------- Jonas ----      """
-        file = open('Highscorelists\level{0}.txt'.format(level), 'r')
+        file = open('Highscorelists/level{0}.txt'.format(level), 'r')
         
         while True:
             line_cache_raw = file.readline()               # Gets a string
@@ -267,7 +268,7 @@ class DatabaseGuy:
         if D.new_is_better:
 
             data = str(D.new_data)
-            r = requests.post(url, data=data)
+            r = request.post(url, data=data)
 
             if r:
                 return r.text
@@ -275,7 +276,7 @@ class DatabaseGuy:
         else:
             print("No data sent")
 
-
+os.path.join(os.path.dirname(__file__),('Highscorelists/level{0}.txt'))
 
 
 
