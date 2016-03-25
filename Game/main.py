@@ -16,9 +16,7 @@ import random
 import logics
 import database
 
-from guys import DataGuy
-from guys import GameGuy
-from guys import GfxGuy
+from guys import DataGuy, GameGuy, GfxGuy
 
 D = DataGuy()
 Gfx = GfxGuy()
@@ -27,36 +25,33 @@ Game = GameGuy()
 
 def new_game():
 
-    
-    
     while True:
         # -------------------- INIT/input -------------------- #
-        print("\nHello, %s " % D.user)
-        D.level = Game.get_level()           
+        Gfx.greet_user(D)
+        Game.user_input_level(D)           
 
         # -------------------- GRAPHICS -------------------- #
-        Gfx.print_highscore(D, D.level)              
+        Gfx.print_highscore(D)             
         
         input("\n\tNow, press enter and get ready to write!")
         
         Gfx.countdown_321()
-        D.clock_before = time.clock() 
+        D.store_clock_before()
         
         # -------------------- CORE GAME -------------------- #
-        Gfx.get_string(D, D.level)  
-        D.user_string = input()
+        Gfx.show_string(D)  
+        Game.input_user_string(D)
         
         # --------------------- LOGIC ----------------------- #
+        D.store_clock_after()
         D.store_datetime()
         logics.calc_points(D, Gfx)
 
         # ---------------- DATABASE DUMP -------  -----------#
         database.store_data(D)
-
+        print(D.highscore_dict)
         # ---------------- DATA TO SERVER -------  -----------#
         listing = database.post_data(D)
-
-        # Print returned data from server
         print('Listing is:\n', listing)
 
         # -------------------- INPUT -------------------- #
@@ -65,7 +60,6 @@ def new_game():
             continue
         else:
             break
-
 
 
 if __name__ == "__main__":

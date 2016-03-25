@@ -1,12 +1,24 @@
 #!/usr/bin/python
-#coding: utf-8
+# coding: utf-8
 
-import time
+
+def calc_points(D, Gfx):
+    """ This function calculates the final score based on three
+         criteria:
+           - Time spent - more time less points
+           - Wrong letters - more wrong, less points
+           - Wrong length - more difference, less points 
+        And then it prints all the stats using graphics.print_stats()"""
+
+    addclockdiff_points(D)
+    addstringlen_points(D)
+    addlengthdiff_points(D)
+
+    Gfx.print_stats(D)
 
 
 def addclockdiff_points(D):
     # --- Evaluate how much time the user has spent typing ---
-    D.clock_after = time.clock()   # checks time after input
     D.clock_diff = D.clock_after - D.clock_before
     if D.clock_diff <= 5.0:
         pass
@@ -43,21 +55,6 @@ def addlengthdiff_points(D):
     return 0
 
 
-def calc_points(D, Gfx):
-    """ This function calculates the final score based on three
-         criteria:
-           - Time spent - more time less points
-           - Wrong letters - more wrong, less points
-           - Wrong length - more difference, less points 
-        And then it prints all the stats using graphics.print_stats()"""
-
-    addclockdiff_points(D)
-    addstringlen_points(D)
-    addlengthdiff_points(D)
-
-    Gfx.print_stats(D)
-
-    return 0
 
 
 
