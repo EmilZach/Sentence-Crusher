@@ -15,8 +15,8 @@ import random
 import logics
 import database
 
-from guys import DataGuy, GameGuy, GfxGuy
-
+from data import DataGuy, GameGuy, DBGuy, LogicGuy
+from graphics import GfxGuy
 
 def game():
     # ------------ INITialize objects ------------- # 
@@ -71,11 +71,3 @@ if __name__ == "__main__":
     game()
 
 
-"""
-   Output of program: game_name, user_name, level_name, points, time_stamp
-"""
-
-"""
-  session 00:30
-
-"""
