@@ -64,9 +64,12 @@ def write_to_file(D, level):
         -------------------------- Jonas ----
        """
     file = open('Highscorelists\level{0}.txt'.format(level), 'w')
+    print(D.highscore_dict)
+    pop_this_dict = D.highscore_dict.copy()
+
     while True: 
         try:
-            item_pop = str(D.highscore_dict.popitem())
+            item_pop = str(pop_this_dict.popitem())
             #Format
             item_pop = item_pop.replace('"', '')
             item_pop = item_pop.replace('(', '')
@@ -81,6 +84,7 @@ def write_to_file(D, level):
         except KeyError:
             break
 
+    print(D.highscore_dict)
     file.close()
     return 0
 
@@ -127,10 +131,11 @@ def post_data(D):
 
     url = "http://127.0.0.1:5000/collect_data"
 
-    
     if D.new_is_better:
 
-        data = D.highscore_dict[D.user]
+        data = str(D.new_data)
+        print(data)
+
         r = requests.post(url, data=data)
 
         if r:

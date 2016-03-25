@@ -151,6 +151,10 @@ class GfxGuy:
         print(' ========================== \n'
               '                              ')
 
+    def greet_user(self, D):
+        name = D.user
+        print("\nHello, %s " % name)
+
 
 
 

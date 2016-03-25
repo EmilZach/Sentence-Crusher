@@ -1,8 +1,6 @@
 #!/usr/bin/python
 # coding: utf-8
 
-import time
-
 
 def calc_points(D, Gfx):
     """ This function calculates the final score based on three

@@ -25,7 +25,7 @@ Game = GameGuy()
 
 def new_game():
     # -------------------- INIT/input -------------------- #
-    print("\nHello, %s " % D.user)
+    Gfx.greet_user(D)
     Game.user_input_level(D)           
 
     # -------------------- GRAPHICS -------------------- #
@@ -46,6 +46,7 @@ def new_game():
 
     # ---------------- DATABASE DUMP -----------------#
     database.store_data(D)
+    print(D.highscore_dict)
 
     # ---------------- DATA TO SERVER ----------------#
     listing = database.post_data(D)
