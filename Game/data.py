@@ -44,16 +44,16 @@ class DataGuy:
         self.clock_after = time.clock()
 
 
-class GameGuy:
+class InputGuy:
 
     def __init__(self):
-        print("GameGuy initialized")
+        print("InputGuy initialized")
 
-    def user_input_name(self, D):
+    def user_name(self, D):
         user = input('   Please enter your user name: ')
         D.user = user.upper() 
 
-    def user_input_level(self, D):
+    def user_level(self, D):
         while True:
             try:
                 level = int(input("Which level do you want to play; level[1, 2, 3, 4] or 5 for a random level."))
@@ -68,7 +68,7 @@ class GameGuy:
 
         D.level = level
 
-    def input_user_string(self, D):
+    def user_string(self, D):
         D.user_string = input()
 
     def continue_game(self):
@@ -78,6 +78,8 @@ class GameGuy:
         else:
             return False
 
+    def enter_to_continue(self):
+        input("\n\tNow, press enter and get ready to write!")
 
 class LogicGuy:
 
@@ -134,10 +136,10 @@ class LogicGuy:
         return 0
 
 
-class DBGuy:
+class DatabaseGuy:
 
     def __init__(self):
-        print("DBGuy initialized")
+        print("DatabaseGuy initialized")
 
     def store_data(self, D):
         """ Tasks:
@@ -253,20 +255,17 @@ class DBGuy:
 
         return liste_sort
 
-    # POST data to server
-    def post_data(self, D):
+
+    def send_post_data(self, D):
         """
         Post game data to server
         :return: listing
         """
-
         url = "http://127.0.0.1:5000/collect_data"
 
         if D.new_is_better:
 
             data = str(D.new_data)
-            print(data)
-
             r = requests.post(url, data=data)
 
             if r:
@@ -279,11 +278,6 @@ class DBGuy:
 
 
 
-
-
-
-
-
 """
-session 16:55 -  
+session 16:55 -  17:55
 session 23:15 -  02:00    """

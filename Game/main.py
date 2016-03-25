@@ -12,37 +12,37 @@ import time
 import random
 
 # --- Local modules ---
-from data import DataGuy, GameGuy, DBGuy, LogicGuy
+from data import DataGuy, InputGuy, DatabaseGuy, LogicGuy
 from graphics import GfxGuy
+
 
 def game():
     # ------------ INITialize objects ------------- # 
     D = DataGuy()
-    DB = DBGuy()
+    DB = DatabaseGuy()
     Gfx = GfxGuy()
-    Game = GameGuy()
+    Input = InputGuy()
     Logic = LogicGuy()
 
     # -------------- Start new_game ------------- #
     Gfx.print_opening()
-    Game.user_input_name(D)
+    Input.user_name(D)
 
     while True:
         # -------------------- INIT/input -------------------- #
         Gfx.greet_user(D)
-        Game.user_input_level(D)           
+        Input.user_level(D)           
 
         # -------------------- GRAPHICS -------------------- #
         Gfx.print_highscore(D, DB)             
-        
-        input("\n\tNow, press enter and get ready to write!")
+        Input.enter_to_continue()
         
         Gfx.countdown_321()
         D.store_clock_before()
         
         # -------------------- CORE GAME -------------------- #
         Gfx.show_string(D)  
-        Game.input_user_string(D)
+        Input.user_string(D)
         
         # --------------------- LOGIC ----------------------- #
         D.store_clock_after()
@@ -51,16 +51,16 @@ def game():
 
         # ---------------- DATABASE DUMP -------  -----------#
         DB.store_data(D)
-        print(D.highscore_dict)
+
         # ---------------- DATA TO SERVER -------  -----------#
-        listing = DB.post_data(D)
+        listing = DB.send_post_data(D)
         print('Listing is:\n', listing)
 
         # -------------------- INPUT -------------------- #
-        start_again = Game.continue_game()
+        start_again = Input.continue_game()
 
         if start_again is True:
-            D.__init__()
+            D.__init__()            # reset game data
             continue
         else:
             break
