@@ -2,6 +2,7 @@
 # coding: utf-8
 import time
 
+
 class GfxGuy:
 
     def __init__(self):
@@ -61,9 +62,9 @@ class GfxGuy:
               "  Date: {5}                                     \n"
               "".format(D.level, D.clock_diff, D.wrong_letters, D.length_diff, D.points, D.time_stamp))
 
-    def print_highscore(self, D):
+    def print_highscore(self, D, DB):
         level = D.level
-        score_table = database.get_sorted_highscore(D, level)
+        score_table = DB.get_sorted_highscore(D, level)
 
         print('                           \n'
               ' ========================= \n'

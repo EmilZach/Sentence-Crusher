@@ -12,17 +12,16 @@ import time
 import random
 
 # --- Local modules ---
-import logics
-import database
-
 from data import DataGuy, GameGuy, DBGuy, LogicGuy
 from graphics import GfxGuy
 
 def game():
     # ------------ INITialize objects ------------- # 
     D = DataGuy()
+    DB = DBGuy()
     Gfx = GfxGuy()
     Game = GameGuy()
+    Logic = LogicGuy()
 
     # -------------- Start new_game ------------- #
     Gfx.print_opening()
@@ -34,7 +33,7 @@ def game():
         Game.user_input_level(D)           
 
         # -------------------- GRAPHICS -------------------- #
-        Gfx.print_highscore(D)             
+        Gfx.print_highscore(D, DB)             
         
         input("\n\tNow, press enter and get ready to write!")
         
@@ -48,20 +47,20 @@ def game():
         # --------------------- LOGIC ----------------------- #
         D.store_clock_after()
         D.store_datetime()
-        logics.calc_points(D, Gfx)
+        Logic.calc_points(D, Gfx)
 
         # ---------------- DATABASE DUMP -------  -----------#
-        database.store_data(D)
+        DB.store_data(D)
         print(D.highscore_dict)
         # ---------------- DATA TO SERVER -------  -----------#
-        listing = database.post_data(D)
+        listing = DB.post_data(D)
         print('Listing is:\n', listing)
 
         # -------------------- INPUT -------------------- #
         start_again = Game.continue_game()
 
         if start_again is True:
-            D.reset_data()
+            D.__init__()
             continue
         else:
             break

@@ -7,16 +7,10 @@ import random
 import datetime
 import requests
 
-import database
-
 
 class DataGuy:
     """ This class handles data for the current game """
     def __init__(self):
-        self.reset_data()
-        print("DataGuy initialized")
-
-    def reset_data(self):
         # --- Data which is going to be stored in a file -----
         self.game = 'Sentence Crushers'
         self.user = ''              # User name is a string.upper()
@@ -90,7 +84,7 @@ class LogicGuy:
     def __init__(self):
         print("LogicGuy initialized")
 
-    def calc_points(D, Gfx):
+    def calc_points(self, D, Gfx):
         """ This function calculates the final score based on three
              criteria:
                - Time spent - more time less points
@@ -98,14 +92,13 @@ class LogicGuy:
                - Wrong length - more difference, less points 
             And then it prints all the stats using graphics.print_stats()"""
 
-        addclockdiff_points(D)
-        addstringlen_points(D)
-        addlengthdiff_points(D)
+        self.addclockdiff_points(D)
+        self.addstringlen_points(D)
+        self.addlengthdiff_points(D)
 
         Gfx.print_stats(D)
 
-
-    def addclockdiff_points(D):
+    def addclockdiff_points(self, D):
         # --- Evaluate how much time the user has spent typing ---
         D.clock_diff = D.clock_after - D.clock_before
         if D.clock_diff <= 5.0:
@@ -115,8 +108,7 @@ class LogicGuy:
         D.points = int(D.points)
         return 0
 
-
-    def addstringlen_points(D):
+    def addstringlen_points(self, D):
         # --- Choose shortest string ---
         if len(D.string) <= len(D.user_string):
             shortest_string = len(D.string)
@@ -133,8 +125,7 @@ class LogicGuy:
                 D.points -= 2
         return 0
 
-
-    def addlengthdiff_points(D):
+    def addlengthdiff_points(self, D):
         # --- Evaluate difference in length -------
         D.length_diff = abs(len(D.string) - len(D.user_string))
         D.points -= (D.length_diff*20)
@@ -142,12 +133,13 @@ class LogicGuy:
             D.points = 1
         return 0
 
+
 class DBGuy:
 
     def __init__(self):
         print("DBGuy initialized")
 
-    def store_data(D):
+    def store_data(self, D):
         """ Tasks:
             1. Read old data from file.
             2. Compare old data vs new data
@@ -156,7 +148,7 @@ class DBGuy:
         ------------------------ Jonas ---"""
 
         # Task 1  - (This has already been done in get_sorted_highscore())
-        read_from_file(D, D.level)
+        self.read_from_file(D, D.level)
 
         # Task 2
         try: 
@@ -168,14 +160,13 @@ class DBGuy:
             # Task 3    
             D.store_new_data()
             D.highscore_dict[D.user] = D.new_data
-            write_to_file(D, D.level)
+            self.write_to_file(D, D.level)
 
             D.new_is_better = True
         else: 
             pass
 
-
-    def read_from_file(D, level):
+    def read_from_file(self, D, level):
         """
           Function will return a dictionary. 
            The dictionary will contain the entire dataset
@@ -199,8 +190,7 @@ class DBGuy:
 
         file.close()
 
-
-    def write_to_file(D, level):
+    def write_to_file(self, D, level):
         """
           Function writes from the modified dictionary,
            back to the file in this format: 
@@ -214,7 +204,7 @@ class DBGuy:
         while True: 
             try:
                 item_pop = str(pop_this_dict.popitem())
-                #Format
+                # Format
                 item_pop = item_pop.replace('"', '')
                 item_pop = item_pop.replace('(', '')
                 item_pop = item_pop.replace(')', '')
@@ -232,12 +222,10 @@ class DBGuy:
         file.close()
         return 0
 
-
-    def getkey(item):
+    def getkey(self, item):
         return item[0]
 
-
-    def get_sorted_highscore(D, level):
+    def get_sorted_highscore(self, D, level):
         """
           Function gets data from highscore_dict which has
            all saved data about the current level.
@@ -246,7 +234,7 @@ class DBGuy:
               And the lenght of said list.
              ------------------- Jonas --------------- """
         
-        read_from_file(D, level)
+        self.read_from_file(D, level)
         old_data = D.highscore_dict
 
         liste = []
@@ -261,13 +249,12 @@ class DBGuy:
             except KeyError:
                 break
 
-        liste_sort = sorted(liste, key=getkey, reverse=True)
+        liste_sort = sorted(liste, key=self.getkey, reverse=True)
 
         return liste_sort
 
-
     # POST data to server
-    def post_data(D):
+    def post_data(self, D):
         """
         Post game data to server
         :return: listing
