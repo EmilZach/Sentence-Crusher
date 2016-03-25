@@ -5,7 +5,7 @@
 import time
 import random
 import datetime
-import request
+import requests
 import os
 
 
@@ -268,7 +268,7 @@ class DatabaseGuy:
         if D.new_is_better:
 
             data = str(D.new_data)
-            r = request.post(url, data=data)
+            r = requests.post(url, data=data)
 
             if r:
                 return r.text
