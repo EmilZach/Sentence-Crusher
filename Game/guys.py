@@ -12,6 +12,10 @@ import database
 class DataGuy:
     """ This class handles data for the current game """
     def __init__(self):
+        self.reset_data()
+        print("DataGuy initialized")
+
+    def reset_data(self):
         # --- Data which is going to be stored in a file -----
         self.game = 'Sentence Crushers'
         self.user = ''              # User name is a string.upper()
@@ -30,7 +34,7 @@ class DataGuy:
         self.new_is_better = False  # If true, then data is sent to server
         self.highscore_dict = {}    # A dictionary which a file is read to,
         #                              and which a file is written from.
-        print("DataGuy initialized")
+        print("Data has been reset")
 
     def store_datetime(self):
         self.time_stamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -48,8 +52,11 @@ class DataGuy:
 class GameGuy:
 
     def __init__(self):
-
         print("GameGuy initialized")
+
+    def user_input_name(self, D):
+        user = input('   Please enter your user name: ')
+        D.user = user.upper() 
 
     def user_input_level(self, D):
         while True:
@@ -70,11 +77,11 @@ class GameGuy:
         D.user_string = input()
 
     def continue_game(self):
-    yes_or_no = input("\n  Start again? Type: YES/Y")
-    if yes_or_no.upper() == "YES" or yes_or_no.upper() == "Y":
-        return True
-    else:
-        return False
+        yes_or_no = input("\n  Start again? Type: YES/Y")
+        if yes_or_no.upper() == "YES" or yes_or_no.upper() == "Y":
+            return True
+        else:
+            return False
 
 
 

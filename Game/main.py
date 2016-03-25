@@ -11,19 +11,22 @@
 import time
 import random
 
-
 # --- Local modules ---
 import logics
 import database
 
 from guys import DataGuy, GameGuy, GfxGuy
 
-D = DataGuy()
-Gfx = GfxGuy()
-Game = GameGuy()
 
+def game():
+    # ------------ INITialize objects ------------- # 
+    D = DataGuy()
+    Gfx = GfxGuy()
+    Game = GameGuy()
 
-def new_game():
+    # -------------- Start new_game ------------- #
+    Gfx.print_opening()
+    Game.user_input_name(D)
 
     while True:
         # -------------------- INIT/input -------------------- #
@@ -56,17 +59,16 @@ def new_game():
 
         # -------------------- INPUT -------------------- #
         start_again = Game.continue_game()
+
         if start_again is True:
+            D.reset_data()
             continue
         else:
             break
 
 
 if __name__ == "__main__":
-    Gfx.print_opening()
-    user = input('   Please enter your user name: ')
-    D.user = user.upper()  # Data[0]
-    new_game()
+    game()
 
 
 """
