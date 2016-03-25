@@ -26,39 +26,46 @@ Game = GameGuy()
 
 
 def new_game():
-    # -------------------- INIT/input -------------------- #
-    print("\nHello, %s " % D.user)
-    D.level = Game.get_level()           
 
-    # -------------------- GRAPHICS -------------------- #
-    Gfx.print_highscore(D, D.level)              
     
-    input("\n\tNow, press enter and get ready to write!")
     
-    Gfx.countdown_321()
-    D.clock_before = time.clock() 
-    
-    # -------------------- CORE GAME -------------------- #
-    Gfx.get_string(D, D.level)  
-    D.user_string = input()
-    
-    # --------------------- LOGIC ----------------------- #
-    D.store_datetime()
-    logics.calc_points(D, Gfx)
+    while True:
+        # -------------------- INIT/input -------------------- #
+        print("\nHello, %s " % D.user)
+        D.level = Game.get_level()           
 
-    # ---------------- DATABASE DUMP -------  -----------#
-    database.store_data(D)
+        # -------------------- GRAPHICS -------------------- #
+        Gfx.print_highscore(D, D.level)              
+        
+        input("\n\tNow, press enter and get ready to write!")
+        
+        Gfx.countdown_321()
+        D.clock_before = time.clock() 
+        
+        # -------------------- CORE GAME -------------------- #
+        Gfx.get_string(D, D.level)  
+        D.user_string = input()
+        
+        # --------------------- LOGIC ----------------------- #
+        D.store_datetime()
+        logics.calc_points(D, Gfx)
 
-    # ---------------- DATA TO SERVER -------  -----------#
-    listing = database.post_data(D)
+        # ---------------- DATABASE DUMP -------  -----------#
+        database.store_data(D)
 
-    # Print returned data from server
-    print('Listing is:\n', listing)
+        # ---------------- DATA TO SERVER -------  -----------#
+        listing = database.post_data(D)
 
-    # -------------------- INPUT -------------------- #
-    yes_or_no = input("\n  Start again? Yes?")
-    if yes_or_no.upper() == "YES" or yes_or_no.upper() == "Y":
-        new_game()
+        # Print returned data from server
+        print('Listing is:\n', listing)
+
+        # -------------------- INPUT -------------------- #
+        start_again = Game.continue_game()
+        if start_again is True:
+            continue
+        else:
+            break
+
 
 
 if __name__ == "__main__":

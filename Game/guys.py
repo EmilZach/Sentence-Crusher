@@ -58,6 +58,13 @@ class GameGuy():
 
         return self.level
 
+    def continue_game(self):
+        yes_or_no = input("\n  Start again? Type: YES/Y")
+        if yes_or_no.upper() == "YES" or yes_or_no.upper() == "Y":
+            return True
+        else:
+            return False
+
 
 class GfxGuy():
 
@@ -176,4 +183,6 @@ class GfxGuy():
 
 
 
-""" session 23:15 -  02:00    """
+"""
+session 16:55 -  
+session 23:15 -  02:00    """
