@@ -65,18 +65,4 @@ def calc_points(D, Gfx):
     return 0
 
 
-# POST data to server
-def post_data(D):
-    """
-    Post game data to server
-    :return: listing
-    """
 
-    url = "http://127.0.0.1:5000/collect_data"
-
-    data = data
-
-    r = requests.post(url, data=data)
-
-    if r:
-        return r.text

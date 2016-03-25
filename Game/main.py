@@ -18,7 +18,7 @@ import database
 
 from guys import DataGuy
 from guys import GameGuy
-from graphics import GfxGuy
+from guys import GfxGuy
 
 D = DataGuy()
 Gfx = GfxGuy()
@@ -39,8 +39,7 @@ def new_game():
     D.clock_before = time.clock() 
     
     # -------------------- CORE GAME -------------------- #
-    D.string = Gfx.get_string(D.level)  
-    print(D.string)
+    Gfx.get_string(D, D.level)  
     D.user_string = input()
     
     # --------------------- LOGIC ----------------------- #
@@ -51,7 +50,7 @@ def new_game():
     database.store_data(D)
 
     # ---------------- DATA TO SERVER -------  -----------#
-    listing = logics.post_data(D)
+    listing = database.post_data(D)
 
     # Print returned data from server
     print('Listing is:\n', listing)

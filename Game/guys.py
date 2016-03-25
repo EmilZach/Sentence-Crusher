@@ -1,5 +1,8 @@
+import time
 import random
 import datetime
+
+import database
 
 class DataGuy():
 
@@ -12,14 +15,13 @@ class DataGuy():
         self.clock_diff = 0.0       # Time spent typing
         self.time_stamp = ''        # Time stamp when user have submitted text
 
-        
-
         # --- Data which is only in memory ---
         self.clock_before = 0.00    # Clock just before textinput 
         self.clock_after = 0.00     # Clock when user have submitted text
         self.string = ''            # Text for the current level
         self.user_string = ''       # User inputted text-input
         self.wrong_letters = 0      # Self explanitory
+        self.new_is_better = False
         self.highscore_dict = {}    # A dictionary which a file is read to, 
                                     #      and which a file is written from.
 

@@ -31,7 +31,7 @@ class GfxGuy():
             time.sleep(0.05)
 
 
-    def get_string(self, level):
+    def get_string(self, D, level):
 
         string_dict = {1: "\"Object-oriented programming is an exceptionally bad idea"
                           " which could only have originated in California.\" - Edsger Dijkstra",
@@ -42,8 +42,9 @@ class GfxGuy():
                        4: "\"Low-level programming is good for the programmer's soul.\""
                           " - John Carmack"
                        }
-        
-        return string_dict[level]
+
+        D.string = string_dict[level]
+        print(D.string)
 
 
     def countdown_321(self):

@@ -10,15 +10,16 @@ def store_data(D):
 
     # Test if new score is better than old highscore
     try: 
-        old_points = int(D.highscore_dict[D.user])
+        old_points = int(D.highscore_dict[D.user][0])
     except KeyError:
         old_points = 0
     
     if D.points > old_points:
         # dictionary is modified with new data
-        D.highscore_dict[D.user] = [D.points]
-        # The modified dictionary is written back to the file.
+        D.highscore_dict[D.user][0] = D.points
         write_to_file(D, D.level)
+
+        D.new_is_better = True
     else: 
         pass
 
@@ -88,8 +89,7 @@ def get_sorted_highscore(level):
         Returns a sorted list of tuples, with names
          and scores from highest to lowest.
           And the lenght of said list.
-         ------------------- Jonas --------------- 
-    """
+         ------------------- Jonas --------------- """
     
     level_data = read_into_dict(level)
 
@@ -109,6 +109,22 @@ def get_sorted_highscore(level):
 
     return liste_sort
 
+
+# POST data to server
+def post_data(D):
+    """
+    Post game data to server
+    :return: listing
+    """
+
+    url = "http://127.0.0.1:5000/collect_data"
+
+    if D.new_is_better:
+        data = D.highscore_dict[D.user]
+        r = requests.post(url, data=data)
+
+        if r:
+            return r.text
 
 
 
