@@ -31,15 +31,11 @@ def collect_data():
     :return:
     """
     game = request.form.get("game")
-    print(game)
     level = request.form.get("level")
-    print(level)
     score = request.form.get("score")
-    print(score)
     player = request.form.get("player")
-    print(player)
     timestamp = request.form.get("timestamp")
-    print(timestamp)
+    
     return render_template("data.html", game=game, level=level, score=score, player=player, timestamp=timestamp)
 
 

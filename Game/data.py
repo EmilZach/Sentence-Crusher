@@ -202,7 +202,6 @@ class DatabaseGuy:
             -------------------------- Jonas ----
            """
         file = open('Highscorelists\level{0}.txt'.format(level), 'w')
-        print(D.highscore_dict)
         pop_this_dict = D.highscore_dict.copy()
 
         while True: 
@@ -222,7 +221,6 @@ class DatabaseGuy:
             except KeyError:
                 break
 
-        print(D.highscore_dict)
         file.close()
         return 0
 
@@ -267,7 +265,14 @@ class DatabaseGuy:
 
         if D.new_is_better:
 
-            data = str(D.new_data)
+            # D.new_data = [points, time_stamp, clock_diff, level, game]
+            data = {}
+            data['game'] = D.new_data[4]
+            data['level'] = D.new_data[3]
+            data['score'] = D.new_data[0]
+            data['player'] = D.user
+            data['timestamp'] = D.new_data[1]
+
             r = requests.post(url, data=data)
 
             if r:
