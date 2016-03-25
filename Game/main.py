@@ -31,7 +31,7 @@ def new_game():
     D.level = Game.get_level()           
 
     # -------------------- GRAPHICS -------------------- #
-    Gfx.print_highscore(D.level)              
+    Gfx.print_highscore(D, D.level)              
     
     input("\n\tNow, press enter and get ready to write!")
     

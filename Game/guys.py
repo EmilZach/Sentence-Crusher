@@ -4,6 +4,7 @@ import datetime
 
 import database
 
+
 class DataGuy():
 
     def __init__(self):
@@ -14,6 +15,8 @@ class DataGuy():
         self.points = 300           # Begins at 300 which is maximum score. 
         self.clock_diff = 0.0       # Time spent typing
         self.time_stamp = ''        # Time stamp when user have submitted text
+
+        self.new_data = [self.points, self.time_stamp, self.clock_diff, self.level, self.game]
 
         # --- Data which is only in memory ---
         self.clock_before = 0.00    # Clock just before textinput 
@@ -36,6 +39,7 @@ class GameGuy():
 
     def __init__(self):
         self.level = 0
+
         print("GameGuy initialized")
 
 
@@ -58,6 +62,7 @@ class GameGuy():
 class GfxGuy():
 
     def __init__(self):
+
         print('GfxGuy initialized')
 
     def print_opening(self):
@@ -116,8 +121,8 @@ class GfxGuy():
               "".format(D.level, D.clock_diff, D.wrong_letters, D.length_diff, D.points, D.time_stamp))
 
 
-    def print_highscore(self, level):
-        score_table = database.get_sorted_highscore(level)
+    def print_highscore(self, D, level):
+        score_table = database.get_sorted_highscore(D, level)
 
         print('                           \n'
               ' ========================= \n'
@@ -171,4 +176,4 @@ class GfxGuy():
 
 
 
-""" session 23:15 -      """
+""" session 23:15 -  02:00    """

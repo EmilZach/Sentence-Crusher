@@ -2,11 +2,6 @@
 #coding: utf-8
 
 import time
-import requests
-
-import graphics
-import guys
-
 
 
 def addclockdiff_points(D):

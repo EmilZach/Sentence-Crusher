@@ -1,6 +1,7 @@
 #!/usr/bin/python
 #coding: utf-8
 
+import requests
 
 def store_data(D):
     """
@@ -16,7 +17,7 @@ def store_data(D):
     
     if D.points > old_points:
         # dictionary is modified with new data
-        D.highscore_dict[D.user][0] = D.points
+        D.highscore_dict[D.user] = D.new_data
         write_to_file(D, D.level)
 
         D.new_is_better = True
@@ -82,7 +83,7 @@ def getkey(item):
     return item[0]
 
 
-def get_sorted_highscore(level):
+def get_sorted_highscore(D, level):
     """
       Function gets data from highscore_dict which has
        all saved data about the current level.
@@ -91,13 +92,14 @@ def get_sorted_highscore(level):
           And the lenght of said list.
          ------------------- Jonas --------------- """
     
-    level_data = read_into_dict(level)
+    read_from_file(D, level)
+    old_data = D.highscore_dict
 
     liste = []
 
     while True:
         try:
-            getit = level_data.popitem()
+            getit = old_data.popitem()
             get_name = getit[0]
             get_pts = getit[1][0]
             tup = (get_name, get_pts)
@@ -119,12 +121,17 @@ def post_data(D):
 
     url = "http://127.0.0.1:5000/collect_data"
 
+    
     if D.new_is_better:
+
         data = D.highscore_dict[D.user]
         r = requests.post(url, data=data)
 
         if r:
             return r.text
+
+    else:
+        print("No data sent")
 
 
 
