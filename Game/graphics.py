@@ -4,7 +4,7 @@ import time
 
 
 class GfxGuy:
-
+    """ This class prints game graphics"""
     def __init__(self):
         print('GfxGuy initialized')
 

@@ -9,7 +9,7 @@ import requests
 
 
 class DataGuy:
-    """ This class handles data for the current game """
+    """ This class handles all data for the current game """
     def __init__(self):
         # --- Data which is going to be stored in a file -----
         self.game = 'Sentence Crushers'
@@ -45,7 +45,7 @@ class DataGuy:
 
 
 class InputGuy:
-
+    """ This class handles all input-events during the game """
     def __init__(self):
         print("InputGuy initialized")
 
@@ -81,8 +81,9 @@ class InputGuy:
     def enter_to_continue(self):
         input("\n\tNow, press enter and get ready to write!")
 
-class LogicGuy:
 
+class LogicGuy:
+    """ This class handles necessary calculations"""
     def __init__(self):
         print("LogicGuy initialized")
 
@@ -137,7 +138,7 @@ class LogicGuy:
 
 
 class DatabaseGuy:
-
+    """ This class reads from, and writes to files, and sends data to server"""
     def __init__(self):
         print("DatabaseGuy initialized")
 
