@@ -54,8 +54,8 @@ def game():
         DB.store_data(D)
 
         # ---------------- DATA TO SERVER -------  -----------#
-        listing = DB.send_post_data(D)
-        print('Listing is:\n', listing)
+        msg = DB.send_post_data(D)
+        print('Msg from web server: ', msg)
 
         # -------------------- INPUT -------------------- #
         start_again = Input.continue_game()

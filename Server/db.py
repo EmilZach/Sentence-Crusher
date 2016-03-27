@@ -16,7 +16,7 @@ class DataGuy:
         self.game = 'Sentence Crushers'
         self.user = ''              # User name is a string.upper()
         self.level = 0              # Level between 1 - 4 
-        self.points = 300           # Begins at 300 which is maximum score. 
+        self.points = 300           # Begins at 300 which is maximum score.
         self.clock_diff = 0.0       # Time spent typing
         self.time_stamp = ''        # Time stamp when user have submitted text
         self.new_data = []          # List containing all of the above
@@ -30,7 +30,7 @@ class DataGuy:
         self.new_is_better = False  # If true, then data is sent to server
         self.highscore_dict = {}    # A dictionary which a file is read to,
         #                              and which a file is written from.
-        print("Data has been reset")
+        # print("Data has been reset")
 
     def store_datetime(self):
         self.time_stamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -45,103 +45,9 @@ class DataGuy:
         self.clock_after = time.clock()
 
 
-class InputGuy:
-    """ This class handles all input-events during the game """
-    def __init__(self):
-        print("InputGuy initialized")
-
-    def user_name(self, D):
-        user = input('   Please enter your user name: ')
-        D.user = user.upper() 
-
-    def user_level(self, D):
-        while True:
-            try:
-                level = int(input("Which level do you want to play; level[1, 2, 3, 4] or 5 for a random level."))
-                if level == 5:
-                    level = random.randrange(1, 5)
-                else:
-                    pass  
-                break
-
-            except (ValueError, KeyError):
-                print("You have to navigate using the numbers 1 to 5. Try again.")
-
-        D.level = level
-
-    def user_string(self, D):
-        D.user_string = input()
-
-    def continue_game(self):
-        yes_or_no = input("\n  Start again? Type: YES/Y")
-        if yes_or_no.upper() == "YES" or yes_or_no.upper() == "Y":
-            return True
-        else:
-            return False
-
-    def enter_to_continue(self):
-        input("\n\tNow, press enter and get ready to write!")
-
-
-class LogicGuy:
-    """ This class handles necessary calculations"""
-    def __init__(self):
-        print("LogicGuy initialized")
-
-    def calc_points(self, D, Gfx):
-        """ This function calculates the final score based on three
-             criteria:
-               - Time spent - more time less points
-               - Wrong letters - more wrong, less points
-               - Wrong length - more difference, less points 
-            And then it prints all the stats using graphics.print_stats()"""
-
-        self.addclockdiff_points(D)
-        self.addstringlen_points(D)
-        self.addlengthdiff_points(D)
-
-        Gfx.print_stats(D)
-
-    def addclockdiff_points(self, D):
-        # --- Evaluate how much time the user has spent typing ---
-        D.clock_diff = D.clock_after - D.clock_before
-        if D.clock_diff <= 5.0:
-            pass
-        elif D.clock_diff > 5.0:
-            D.points -= (-50+(D.clock_diff*6))
-        D.points = int(D.points)
-        return 0
-
-    def addstringlen_points(self, D):
-        # --- Choose shortest string ---
-        if len(D.string) <= len(D.user_string):
-            shortest_string = len(D.string)
-        else:
-            shortest_string = len(D.user_string)
-
-        # --- Evaluate how many letters are wrong ----
-        D.wrong_letters = 0
-        for i in range(shortest_string):
-            if D.string[i] == D.user_string[i]:
-                pass
-            else:
-                D.wrong_letters += 1
-                D.points -= 2
-        return 0
-
-    def addlengthdiff_points(self, D):
-        # --- Evaluate difference in length -------
-        D.length_diff = abs(len(D.string) - len(D.user_string))
-        D.points -= (D.length_diff*20)
-        if D.points < 1:
-            D.points = 1
-        return 0
-
 
 class DatabaseGuy:
     """ This class reads from, and writes to files, and sends data to server"""
-    def __init__(self):
-        print("DatabaseGuy initialized")
 
     def store_data(self, D):
         """ Tasks:
@@ -256,35 +162,19 @@ class DatabaseGuy:
         return liste_sort
 
 
-    def send_post_data(self, D):
-        """
-        Post game data to server
-        :return: listing
-        """
+    def list_highscore(self, D, DB):
+            level = D.level
+            score_table = DB.get_sorted_highscore(D, level)
+            sorted_highscore_list = ''
+            for tup in score_table:
+                tup = str(tup)
+                tup = tup.replace('(', '')
+                tup = tup.replace(')', '')
+                tup = tup.replace('\'', '')
+                tup = '   ' + tup + ' p'
+                sorted_highscore_list += tup
 
-        url = "http://127.0.0.1:5000/collect_data"
-
-        if D.new_is_better:
-
-            data = {}
-            data['game'] = D.new_data[4]
-            data['level'] = D.new_data[3]
-            data['points'] = D.new_data[0]
-            data['user'] = D.user
-            data['time_stamp'] = D.new_data[1]
-
-            try:
-                r = requests.post(url, data=data)
-                if r:
-                    return r.text
-            except requests.ConnectionError as e:
-                print('No connection with web server.')
-
-        else:
-            print("You have a higher score already registered. No data sent")
-
-os.path.join(os.path.dirname(__file__),('Highscorelists/level{0}.txt'))
-
+            return sorted_highscore_list
 
 
 """

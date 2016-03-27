@@ -3,6 +3,10 @@
 """
 
 from flask import Flask, render_template, request
+from Server.db import DataGuy, DatabaseGuy
+
+D = DataGuy()
+DB = DatabaseGuy()
 
 app = Flask(__name__)
 
@@ -32,7 +36,7 @@ def data():
     """
     Render page with raw_data from game client
     """
-    return render_template('data.html', game=cache.game, level=cache.level, score=cache.score, player=cache.player, timestamp=cache.timestamp)
+    return render_template('data.html', game=cache.game, level=cache.level, score=cache.points, player=cache.user, timestamp=cache.time_stamp)
 
 
 # ---------- INCOMMING DATA from game-client -------- # 
@@ -42,22 +46,30 @@ def collect_data():
     Data collection from game client
     :return:
     """
-    cache.game = request.form.get("game")
-    cache.level = request.form.get("level")
-    cache.score = request.form.get("score")
-    cache.player = request.form.get("player")
-    cache.timestamp = request.form.get("timestamp")
-    
-    return "<h1> Recieved the data </h1>" 
+    D.game = request.form.get("game")
+    D.level = int(request.form.get("level"))
+    D.points = int(request.form.get("points"))
+    D.user = request.form.get("user")
+    D.time_stamp = request.form.get("time_stamp")
+
+    # Store data from game client
+    DB.store_data(D)
+
+    # Extract a list of scores
+    scorelist = DB.list_highscore(D, DB)
+
+    # Deliver list to game client
+    return "Data received.\n" \
+           "Scorelist from web server: %s" % scorelist
 
 
 class CacheData:
     def __init__(self):
         self.game = ''
         self.level = 0
-        self.score = 0
-        self.player = ''
-        self.timestamp = ''
+        self.points = 0
+        self.user = ''
+        self.time_stamp = ''
 
 
 if __name__ == "__main__":
