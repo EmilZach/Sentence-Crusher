@@ -61,7 +61,7 @@ def game():
         start_again = Input.continue_game()
 
         if start_again is True:
-            data.__init__()            # reset game data
+            data.restart()            # reset game data
             continue
         else:
             break
