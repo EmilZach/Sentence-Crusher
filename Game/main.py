@@ -13,14 +13,15 @@ import random
 
 
 # --- Local modules ---
-from data import DataGuy, InputGuy, DatabaseGuy, LogicGuy
+from storage import StorageGuy
+from data import DataGuy, InputGuy, LogicGuy
 from graphics import GfxGuy
 
 
 def game():
     # ------------ INITialize objects ------------- # 
     data = DataGuy()
-    database = DatabaseGuy()
+    storage = StorageGuy()
     gfx = GfxGuy()
     Input = InputGuy() # We can't name it "input" because it is a built-in function in Python.
     logic = LogicGuy()
@@ -37,7 +38,7 @@ def game():
         Input.user_level(data)           
 
         # -------------------- GRAPHICS -------------------- #
-        gfx.print_highscore(data, database)             
+        gfx.print_highscore(data, storage)             
         Input.enter_to_continue()
         
         gfx.countdown_321()
@@ -53,7 +54,7 @@ def game():
         logic.calc_points(data, gfx)
 
         # ---------------- DATABASE DUMP -------  -----------#
-        database.store_data(data)
+        storage.store_data(data)
 
         # ---------------- DATA TO SERVER -------  -----------#
         msg = data.send_post_data()

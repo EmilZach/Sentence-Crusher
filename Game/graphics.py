@@ -3,7 +3,6 @@
 
 import time
 
-
 class GfxGuy:
     """ This class prints game graphics"""
     def __init__(self):
@@ -63,9 +62,9 @@ class GfxGuy:
               "  Date: {5}                                     \n"
               "".format(data.level, data.clock_diff, data.wrong_letters, data.length_diff, data.points, data.time_stamp))
 
-    def print_highscore(self, data, database):
+    def print_highscore(self, data, storage):
         level = data.level
-        score_table = database.get_sorted_highscore(data, level)
+        score_table = storage.get_sorted_highscore(data, level)
 
         print('                           \n'
               ' ========================= \n'
