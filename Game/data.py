@@ -15,25 +15,9 @@ class DataGuy:
         # --- Data which is going to be stored in a file -----
         self.game = 'Sentence Crushers'
         self.user = ''              # User name is a string.upper()
-        self.level = 0              # Level between 1 - 4 
-        self.points = 300           # Begins at 300 which is maximum score. 
-        self.clock_diff = 0.0       # Time spent typing
-        self.time_stamp = ''        # Time stamp when user have submitted text
-        self.new_data = []          # List containing all of the above
 
-        # --- Data which stays only in memory ---
-        self.clock_before = 0.00    # Clock just before textinput 
-        self.clock_after = 0.00     # Clock when user have submitted text
-        self.string = ''            # Text for the current level
-        self.user_string = ''       # User inputted text-input
-        self.wrong_letters = 0      # Self explanitory
-        self.new_is_better = False  # If true, then data is sent to server
-        self.highscore_dict = {}    # A dictionary which a file is read to,
-        #                              and which a file is written from.
-
-    def restart(self):
+    def new_game_state(self):
         # --- Data which is going to be stored in a file -----
-        self.game = 'Sentence Crushers'
         self.level = 0              # Level between 1 - 4 
         self.points = 300           # Begins at 300 which is maximum score. 
         self.clock_diff = 0.0       # Time spent typing
@@ -62,6 +46,33 @@ class DataGuy:
 
     def store_clock_after(self):
         self.clock_after = time.clock()
+
+    def send_post_data(self):
+    """
+    Post game data to server
+    :return: listing
+    """
+
+    url = "http://127.0.0.1:5000/collect_data"
+
+    if self.new_is_better:
+
+        information = {}
+        information['game'] = self.new_data[4]
+        information['level'] = self.new_data[3]
+        information['points'] = self.new_data[0]
+        information['user'] = self.user
+        information['time_stamp'] = self.new_data[1]
+
+        try:
+            r = requests.post(url, data=information)
+            if r:
+                return r.text
+        except requests.ConnectionError as e:
+            print('No connection with web server.')
+
+    else:
+        print("You have a higher score already registered. No data sent")
 
 
 class InputGuy:
@@ -157,7 +168,7 @@ class LogicGuy:
         return 0
 
 
-class DatabaseGuy:
+class StorageGuy:
     """ This class reads from, and writes to files, and sends data to server"""
     def __init__(self):
         print("DatabaseGuy initialized")
@@ -275,32 +286,7 @@ class DatabaseGuy:
         return liste_sort
 
 
-    def send_post_data(self, data):
-        """
-        Post game data to server
-        :return: listing
-        """
 
-        url = "http://127.0.0.1:5000/collect_data"
-
-        if data.new_is_better:
-
-            information = {}
-            information['game'] = data.new_data[4]
-            information['level'] = data.new_data[3]
-            information['points'] = data.new_data[0]
-            information['user'] = data.user
-            information['time_stamp'] = data.new_data[1]
-
-            try:
-                r = requests.post(url, data=information)
-                if r:
-                    return r.text
-            except requests.ConnectionError as e:
-                print('No connection with web server.')
-
-        else:
-            print("You have a higher score already registered. No data sent")
 
 os.path.join(os.path.dirname(__file__),('Highscorelists/level{0}.txt'))
 

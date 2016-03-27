@@ -31,6 +31,8 @@ def game():
 
     while True:
         # -------------------- INIT/input -------------------- #
+        data.new_game_state()     # Resets data every loop - Jonas
+
         gfx.greet_user(data)
         Input.user_level(data)           
 
@@ -54,14 +56,13 @@ def game():
         database.store_data(data)
 
         # ---------------- DATA TO SERVER -------  -----------#
-        msg = database.send_post_data(data)
+        msg = data.send_post_data()
         print('Msg from web server: ', msg)
 
         # -------------------- INPUT -------------------- #
         start_again = Input.continue_game()
 
         if start_again is True:
-            data.restart()            # reset game data
             continue
         else:
             break
