@@ -1,5 +1,6 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # coding: utf-8
+
 import time
 
 
@@ -44,7 +45,7 @@ class GfxGuy:
 
     def countdown_321(self):
         for i in (3, 2, 1):
-            print("\t", i)
+            print("\t", i, flush=True)
             time.sleep(1)
 
         print("\tGo!!\n")
