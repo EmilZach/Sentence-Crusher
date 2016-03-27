@@ -273,10 +273,13 @@ class DatabaseGuy:
             data['player'] = D.user
             data['timestamp'] = D.new_data[1]
 
-            r = requests.post(url, data=data)
+            try:
+                r = requests.post(url, data=data)
 
-            if r:
-                return r.text
+                if r:
+                    return r.text
+            except requests.ConnectionError as e:
+                print('No connection with web server.')
 
         else:
             print("No data sent")
