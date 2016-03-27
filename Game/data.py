@@ -5,7 +5,7 @@
 import time
 import random
 import datetime
-import requests
+import request
 import os
 
 
@@ -278,7 +278,7 @@ class DatabaseGuy:
 
                 if r:
                     return r.text
-            except requests.ConnectionError as e:
+            except request.ConnectionError as e:
                 print('No connection with web server.')
 
         else:
