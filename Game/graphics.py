@@ -26,9 +26,9 @@ class GfxGuy:
             print(logo_dict[i])
             time.sleep(0.05)
 
-    def show_string(self, D):
+    def show_string(self, data):
 
-        level = D.level
+        level = data.level
         string_dict = {1: "\"Object-oriented programming is an exceptionally bad idea"
                           " which could only have originated in California.\" - Edsger Dijkstra",
                        2: "Good, better, best. Never let it rest. 'Til your good is"
@@ -40,8 +40,8 @@ class GfxGuy:
                           " - John Carmack"
                        }
 
-        D.string = string_dict[level]
-        print(D.string)
+        data.string = string_dict[level]
+        print(data.string)
 
     def countdown_321(self):
         for i in (3, 2, 1):
@@ -51,7 +51,7 @@ class GfxGuy:
         print("\tGo!!\n")
         time.sleep(1)
 
-    def print_stats(self, D):
+    def print_stats(self, data):
 
         print("\n LEVEL {0} STATISTICS:                      \n"
               "                                               \n"
@@ -61,11 +61,11 @@ class GfxGuy:
               "                                               \n"
               "TOTAL SCORE: {4}   points                       \n"
               "  Date: {5}                                     \n"
-              "".format(D.level, D.clock_diff, D.wrong_letters, D.length_diff, D.points, D.time_stamp))
+              "".format(data.level, data.clock_diff, data.wrong_letters, data.length_diff, data.points, data.time_stamp))
 
-    def print_highscore(self, D, DB):
-        level = D.level
-        score_table = DB.get_sorted_highscore(D, level)
+    def print_highscore(self, data, database):
+        level = data.level
+        score_table = database.get_sorted_highscore(data, level)
 
         print('                           \n'
               ' ========================= \n'
@@ -85,8 +85,8 @@ class GfxGuy:
         print(' ========================== \n'
               '                              ')
 
-    def greet_user(self, D):
-        name = D.user
+    def greet_user(self, data):
+        name = data.user
         print("\nHello, %s " % name)
 
 

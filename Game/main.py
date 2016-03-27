@@ -19,49 +19,49 @@ from graphics import GfxGuy
 
 def game():
     # ------------ INITialize objects ------------- # 
-    D = DataGuy()
-    DB = DatabaseGuy()
-    Gfx = GfxGuy()
-    Input = InputGuy()
-    Logic = LogicGuy()
+    data = DataGuy()
+    database = DatabaseGuy()
+    gfx = GfxGuy()
+    Input = InputGuy() # We can't name it "input" because it is a built-in function in Python.
+    logic = LogicGuy()
 
     # -------------- Start new_game ------------- #
-    Gfx.print_opening()
-    Input.user_name(D)
+    gfx.print_opening()
+    Input.user_name(data)
 
     while True:
         # -------------------- INIT/input -------------------- #
-        Gfx.greet_user(D)
-        Input.user_level(D)           
+        gfx.greet_user(data)
+        Input.user_level(data)           
 
         # -------------------- GRAPHICS -------------------- #
-        Gfx.print_highscore(D, DB)             
+        gfx.print_highscore(data, database)             
         Input.enter_to_continue()
         
-        Gfx.countdown_321()
-        D.store_clock_before()
+        gfx.countdown_321()
+        data.store_clock_before()
         
         # -------------------- CORE GAME -------------------- #
-        Gfx.show_string(D)  
-        Input.user_string(D)
+        gfx.show_string(data)  
+        Input.user_string(data)
         
         # --------------------- LOGIC ----------------------- #
-        D.store_clock_after()
-        D.store_datetime()
-        Logic.calc_points(D, Gfx)
+        data.store_clock_after()
+        data.store_datetime()
+        logic.calc_points(data, gfx)
 
         # ---------------- DATABASE DUMP -------  -----------#
-        DB.store_data(D)
+        database.store_data(data)
 
         # ---------------- DATA TO SERVER -------  -----------#
-        msg = DB.send_post_data(D)
+        msg = database.send_post_data(data)
         print('Msg from web server: ', msg)
 
         # -------------------- INPUT -------------------- #
         start_again = Input.continue_game()
 
         if start_again is True:
-            D.__init__()            # reset game data
+            data.__init__()            # reset game data
             continue
         else:
             break
