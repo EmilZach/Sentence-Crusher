@@ -66,17 +66,7 @@ def collect_data():
            "Scorelist from web server: %s" % scorelist
 
 
-class CacheData:
-    def __init__(self):
-        self.game = ''
-        self.level = 0
-        self.points = 0
-        self.user = ''
-        self.time_stamp = ''
-
-
 if __name__ == "__main__":
-    cache = CacheData()
     app.run(debug=True)
 
 
