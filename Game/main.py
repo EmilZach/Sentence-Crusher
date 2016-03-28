@@ -61,9 +61,7 @@ def game():
         print('Msg from web server: ', msg)
 
         # -------------------- INPUT -------------------- #
-        start_again = Input.continue_game()
-
-        if start_again is True:
+        if Input.continue_game() is True:
             continue
         else:
             break
