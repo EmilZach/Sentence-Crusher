@@ -19,7 +19,7 @@ class StorageGuy:
         
         if data.points > old_points:
             # Task 2    
-            data.store_new_data()
+            data.make_newdata_list()
             data.level_history[data.user] = data.new_data
             self.write_to_file(data)
 
@@ -36,6 +36,8 @@ class StorageGuy:
                ....
                ----------------------------- Jonas ----      """
         level = data.level
+
+        # The next line is here to ensure file-path-compability on all operating systems
         os.path.join(os.path.dirname(__file__),('Highscorelists/level{0}.txt'.format(level)))
         file = open('Highscorelists/level{0}.txt'.format(level), 'r')
         
@@ -58,7 +60,11 @@ class StorageGuy:
              back to the file in this format: 
            'name,points,Time-stamp,Duration,level,game\n'
             -------------------------- Jonas ---- """
-        file = open('Highscorelists\level{0}.txt'.format(data.level), 'w')
+        level = data.level
+
+        # The next line is here to ensure file-path-compability on all operating systems
+        os.path.join(os.path.dirname(__file__),('Highscorelists/level{0}.txt'.format(level)))
+        file = open('Highscorelists\level{0}.txt'.format(level), 'w')
 
         updated_dict = data.level_history    
         unwanted_characters = ['[',']', '\'', ' ']
@@ -77,7 +83,6 @@ class StorageGuy:
 
         file.close()
 
-
     def getkey(self, item):
         return item[1]
 
@@ -89,7 +94,6 @@ class StorageGuy:
              ------------------- Jonas --------------- """
         old_data = data.level_history
         liste = []
-
         for key in old_data:                      # Key = username
             liste.append([key, old_data[key][0]]) # Index 0 = points 
 

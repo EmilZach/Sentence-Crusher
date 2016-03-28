@@ -46,7 +46,7 @@ class DataGuy:
     def store_datetime(self):
         self.time_stamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    def store_new_data(self):
+    def make_newdata_list(self):
         self.new_data = [self.points, self.time_stamp, self.clock_diff, self.level, self.game]
 
     def store_clock_before(self):
