@@ -40,7 +40,7 @@ def game():
         data.get_level_history(storage)           
 
         # -------------------- GRAPHICS -------------------- #
-        gfx.print_highscore(data, storage)             
+        gfx.print_highscore(data)             
         Input.enter_to_continue()
         
         gfx.countdown_321()

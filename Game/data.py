@@ -41,6 +41,7 @@ class DataGuy:
 
     def get_level_history(self, storage):
         storage.read_from_file(self)
+        storage.get_sorted_highscore(self)
 
     def store_datetime(self):
         self.time_stamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')

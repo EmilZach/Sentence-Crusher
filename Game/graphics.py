@@ -62,8 +62,7 @@ class GfxGuy:
               "  Date: {5}                                     \n"
               "".format(data.level, data.clock_diff, data.wrong_letters, data.length_diff, data.points, data.time_stamp))
 
-    def print_highscore(self, data, storage):
-        score_table = storage.get_sorted_highscore(data)
+    def print_highscore(self, data):
 
         print('                           \n'
               ' ========================= \n'
@@ -71,13 +70,11 @@ class GfxGuy:
               ' ========================= \n'
               ''.format(data.level))
 
-        for tup in score_table:
-            tup = str(tup)
-            tup = tup.replace('(', '')
-            tup = tup.replace(')', '')
-            tup = tup.replace('\'', '')
-            tup = '   ' + tup + ' p'
-            print(tup)
+        highscores = data.sorted_highscorelist
+
+        for pair in highscores:
+            formatted = "   ".join(pair)
+            print("    " + formatted)
             time.sleep(0.1)
 
         print(' ========================== \n'
