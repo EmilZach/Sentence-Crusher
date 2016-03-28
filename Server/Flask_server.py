@@ -44,17 +44,19 @@ def data():
 # ---------- INCOMMING DATA from game-client -------- # 
 @app.route("/collect_data", methods=['POST'])
 def collect_data():
-    """
-    Data collection from game client
+    """ Collecting incomming data in the data-class,
+    so it can be stored in a file.
     :return:
     """
-    data.game = request.form.get("game")
-    data.level = int(request.form.get("level"))
-    data.points = int(request.form.get("points"))
     data.user = request.form.get("user")
+    data.points = int(request.form.get("points"))
     data.time_stamp = request.form.get("time_stamp")
+    data.clock_diff = request.form.get("clock_diff")
+    data.level = int(request.form.get("level"))
+    data.game = request.form.get("game")
 
-    # Store data from game client
+    # --- Get history from relevant level-file ----
+    get_level_history(storage)
     storage.store_data(data)
 
     # Extract a list of scores

@@ -12,12 +12,12 @@ class DataGuy:
     """ This class handles data for the server"""
     def __init__(self):
         # --- Data which is going to be stored in a file -----
-        self.game = ''
         self.user = ''              # User name is a string.upper()
-        self.level = 0              # Level between 1 - 4 
         self.points = 300           # Begins at 300 which is maximum score. 
-        self.clock_diff = 0.0       # Time spent typing
         self.time_stamp = ''        # Time stamp when user have submitted text
+        self.clock_diff = 0.0       # Time spent typing
+        self.level = 0              # Level between 1 - 4 
+        self.game = ''
         self.new_data = []          # List containing all of the above
 
         # --- This data should be initiated by get_level_history() right after level is picked ---

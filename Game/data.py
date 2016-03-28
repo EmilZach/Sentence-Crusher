@@ -57,20 +57,23 @@ class DataGuy:
 
     def send_post_data(self):
         """
-        Post game data to server
+        Here the new data is packaged and sent to server.
+         It is important to keep the same format of the data
+          throughout the program. 
+           user, points, time_stamp, clock_diff, level, game
         :return: listing
         """
 
         url = "http://127.0.0.1:5000/collect_data"
 
         if self.new_is_better:
-
             information = {}
-            information['game'] = self.new_data[4]
-            information['points'] = self.new_data[0]
-            information['level'] = self.new_data[3]
             information['user'] = self.user
+            information['points'] = self.new_data[0]
             information['time_stamp'] = self.new_data[1]
+            information['clock_diff'] = self.new_data[2]
+            information['level'] = self.new_data[3]
+            information['game'] = self.new_data[4]
 
             try:
                 r = requests.post(url, data=information)
