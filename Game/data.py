@@ -27,7 +27,7 @@ class DataGuy:
         # --- Data which stays only in memory ---
         self.clock_before = 0.00    # Clock just before textinput 
         self.clock_after = 0.00     # Clock when user have submitted text
-        self.string = ''            # Text for the current level
+        self.lvl_string = ''        # Text for the current level
         self.user_string = ''       # User inputted text-input
         self.wrong_letters = 0      # Number of lvl_string[index] != usr_string[index]
         self.length_diff = 0        # Diff in lenght between lvl_string and usr_string
@@ -154,7 +154,7 @@ class LogicGuy:
 
     def add_stringlen_points(self, data):
         # --- Get data ---
-        lvl_string = data.string   # Level-string
+        lvl_string = data.lvl_string   # Level-string
         usr_string = data.user_string  # User-string
         points = data.points
 
@@ -179,7 +179,7 @@ class LogicGuy:
 
     def add_lengthdiff_points(self, data):
         # --- Get data ---
-        lvl_string = data.string
+        lvl_string = data.lvl_string
         usr_string = data.user_string
         points = data.points
         diff = 0

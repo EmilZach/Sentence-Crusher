@@ -39,8 +39,8 @@ class GfxGuy:
                           " - John Carmack"
                        }
 
-        data.string = string_dict[level]
-        print(data.string)
+        data.lvl_string = string_dict[level]
+        print(data.lvl_string)
 
     def countdown_321(self):
         for i in (3, 2, 1):
