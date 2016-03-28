@@ -86,9 +86,6 @@ class StorageGuy:
 
         file.close()
 
-    def getkey(self, item):
-        return item[1]
-
     def get_sorted_highscore(self, data):
         """ Function gets data from level_history which has
            all saved data about the current level.
@@ -100,7 +97,7 @@ class StorageGuy:
         for key in old_data:                      # Key = username
             liste.append([key, old_data[key][0]]) # Index 0 = points 
 
-        sorted_list = sorted(liste, key=self.getkey, reverse=True)
+        sorted_list = sorted(liste, key=lambda item: item[1], reverse=True)
 
         # --- Return new data ---
         data.sorted_highscorelist = sorted_list
