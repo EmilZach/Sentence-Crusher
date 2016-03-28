@@ -104,7 +104,3 @@ class StorageGuy:
 
         # --- Return new data ---
         data.sorted_highscorelist = sorted_list
-
-
-
-

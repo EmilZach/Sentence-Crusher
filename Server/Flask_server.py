@@ -6,10 +6,10 @@
 """
 
 from flask import Flask, render_template, request
-from Server.db import DataGuy, DatabaseGuy
+from db import DataGuy, StorageGuy
 
-D = DataGuy()
-DB = DatabaseGuy()
+data = DataGuy()
+storage = StorageGuy()
 
 app = Flask(__name__)
 
@@ -49,17 +49,17 @@ def collect_data():
     Data collection from game client
     :return:
     """
-    D.game = request.form.get("game")
-    D.level = int(request.form.get("level"))
-    D.points = int(request.form.get("points"))
-    D.user = request.form.get("user")
-    D.time_stamp = request.form.get("time_stamp")
+    data.game = request.form.get("game")
+    data.level = int(request.form.get("level"))
+    data.points = int(request.form.get("points"))
+    data.user = request.form.get("user")
+    data.time_stamp = request.form.get("time_stamp")
 
     # Store data from game client
-    DB.store_data(D)
+    storage.store_data(data)
 
     # Extract a list of scores
-    scorelist = DB.list_highscore(D, DB)
+    scorelist = storage.list_highscore(data, storage)
 
     # Deliver list to game client
     return "Data received.\n" \

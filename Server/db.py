@@ -46,137 +46,104 @@ class DataGuy:
 
 
 
-class DatabaseGuy:
+class StorageGuy:
     """ This class reads from, and writes to files, and sends data to server"""
+    def __init__(self):
+        print("StorageGuy initialized")
 
-    def store_data(self, D):
+    def store_data(self, data):
         """ Tasks:
-            1. Read old data from file.
-            2. Compare old data vs new data
-            3. Store new data if old points is worse, or 
+            1. Compare old data vs new data
+            2. Store new data if old points is worse, or 
                 non-existent.
         ------------------------ Jonas ---"""
-
-        # Task 1  - (This has already been done in get_sorted_highscore())
-        self.read_from_file(D, D.level)
-
-        # Task 2
+        # Task 1
         try: 
-            old_points = int(D.highscore_dict[D.user][0])
+            old_points = int(data.level_history[data.user][0])
         except KeyError:
             old_points = 0
         
-        if D.points > old_points:
-            # Task 3    
-            D.store_new_data()
-            D.highscore_dict[D.user] = D.new_data
-            self.write_to_file(D, D.level)
+        if data.points > old_points:
+            # Task 2    
+            data.make_newdata_list()
+            data.level_history[data.user] = data.new_data
+            self.write_to_file(data)
 
-            D.new_is_better = True
+            data.new_is_better = True
         else: 
             pass
 
-    def read_from_file(self, D, level):
-        """
-          Function will return a dictionary. 
-           The dictionary will contain the entire dataset
-             for the current level like this: 
+    def read_from_file(self, data):
+        """ Function will return a dictionary. 
+            The dictionary will contain the entire 
+             dataset for the current level like this: 
              { Name1: [Points, Time-stamp, Duration, level, game],
                Name2: [Points, Time-stamp, Duration, level, game] }
                ....
                ----------------------------- Jonas ----      """
+        level = data.level
+
+        # The next line is here to ensure file-path-compability on all operating systems
+        os.path.join(os.path.dirname(__file__),('Highscorelists/level{0}.txt'.format(level)))
         file = open('Highscorelists/level{0}.txt'.format(level), 'r')
         
         while True:
-            line_cache_raw = file.readline()               # Gets a string
-            line_cache = line_cache_raw.replace("\\n", "") # Removes "\n" from string 
-            line_list = line_cache.split(',')              # Makes string into list
+            raw_line = file.readline()               # Gets a string
+            line = raw_line.replace("\\n", "")       # Removes "\n" from string 
+            line_list = line.split(',')              # Makes string into list
             
-            if line_cache == "":                           # This means end of file
+            if line == "":                           # This means end of file
                 break
             else:
                 #   DICTIONARY   [KEY]       = [VALUE1, VALUE2, VALUE3...]
-                D.highscore_dict[line_list[0]] = line_list[1:]
+                data.level_history[line_list[0]] = line_list[1:]
 
         file.close()
 
-    def write_to_file(self, D, level):
-        """
-          Function writes from the modified dictionary,
-           back to the file in this format: 
-            name,points,Time-stamp,Duration,level,game\n
-            -------------------------- Jonas ----
-           """
+    def write_to_file(self, data):
+        """Function writes from level_history, 
+            which possibly contains new data,
+             back to the file in this format: 
+           'name,points,Time-stamp,Duration,level,game\n'
+            -------------------------- Jonas ---- """
+        level = data.level
+
+        # The next line is here to ensure file-path-compability on all operating systems
+        os.path.join(os.path.dirname(__file__),('Highscorelists/level{0}.txt'.format(level)))
         file = open('Highscorelists\level{0}.txt'.format(level), 'w')
-        pop_this_dict = D.highscore_dict.copy()
 
-        while True: 
-            try:
-                item_pop = str(pop_this_dict.popitem())
-                # Format
-                item_pop = item_pop.replace('"', '')
-                item_pop = item_pop.replace('(', '')
-                item_pop = item_pop.replace(')', '')
-                item_pop = item_pop.replace('[', '')
-                item_pop = item_pop.replace(']', '')
-                item_pop = item_pop.replace('\'', '')
-                item_pop = item_pop.replace(' ', '')
-                
-                file.write(item_pop)   
-                file.write("\n")
-            except KeyError:
-                break
+        updated_dict = data.level_history    
+        unwanted_characters = ['[',']', '\'', ' ']
+        write_this = ''
+
+        for key in updated_dict:   # key: is username:
+            liste = []
+            liste.append([key, updated_dict[key]])
+            for char in str(liste):
+                if char in unwanted_characters:
+                    pass
+                else:
+                    write_this += char
+            file.write(write_this)
+            file.write('\n')
 
         file.close()
-        return 0
 
     def getkey(self, item):
-        return item[0]
+        return item[1]
 
-    def get_sorted_highscore(self, D, level):
-        """
-          Function gets data from highscore_dict which has
+    def get_sorted_highscore(self, data):
+        """ Function gets data from level_history which has
            all saved data about the current level.
             Returns a sorted list of tuples, with names
              and scores from highest to lowest.
-              And the lenght of said list.
              ------------------- Jonas --------------- """
-        
-        self.read_from_file(D, level)
-        old_data = D.highscore_dict
-
+        old_data = data.level_history
         liste = []
+        for key in old_data:                      # Key = username
+            liste.append([key, old_data[key][0]]) # Index 0 = points 
 
-        while True:
-            try:
-                getit = old_data.popitem()
-                get_name = getit[0]
-                get_pts = getit[1][0]
-                tup = (get_name, get_pts)
-                liste.append(tup)
-            except KeyError:
-                break
+        sorted_list = sorted(liste, key=self.getkey, reverse=True)
 
-        liste_sort = sorted(liste, key=self.getkey, reverse=True)
-
-        return liste_sort
-
-
-    def list_highscore(self, D, DB):
-            level = D.level
-            score_table = DB.get_sorted_highscore(D, level)
-            sorted_highscore_list = ''
-            for tup in score_table:
-                tup = str(tup)
-                tup = tup.replace('(', '')
-                tup = tup.replace(')', '')
-                tup = tup.replace('\'', '')
-                tup = '   ' + tup + ' p'
-                sorted_highscore_list += tup
-
-            return sorted_highscore_list
-
-
-"""
-session 16:55 -  17:55
-session 23:15 -  02:00    """
+        # --- Return new data ---
+        data.sorted_highscorelist = sorted_list
