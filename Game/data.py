@@ -67,8 +67,8 @@ class DataGuy:
 
             information = {}
             information['game'] = self.new_data[4]
-            information['level'] = self.new_data[3]
             information['points'] = self.new_data[0]
+            information['level'] = self.new_data[3]
             information['user'] = self.user
             information['time_stamp'] = self.new_data[1]
 

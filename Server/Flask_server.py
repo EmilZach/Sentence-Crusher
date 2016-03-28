@@ -6,10 +6,9 @@
 """
 
 from flask import Flask, render_template, request
-from db import DataGuy, StorageGuy
+from s_data import DataGuy
+from s_storage import StorageGuy
 
-data = DataGuy()
-storage = StorageGuy()
 
 app = Flask(__name__)
 
@@ -34,7 +33,7 @@ def level3():
 def level4():
     return render_template('Level4.html')
 
-@app.route("/last-input")
+@app.route("/data-state")
 def data():
     """
     Render page with raw_data from game client
@@ -67,6 +66,8 @@ def collect_data():
 
 
 if __name__ == "__main__":
+    data = DataGuy()
+    storage = StorageGuy()
     app.run(debug=True)
 
 
