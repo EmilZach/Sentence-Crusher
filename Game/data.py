@@ -29,7 +29,8 @@ class DataGuy:
         self.clock_after = 0.00     # Clock when user have submitted text
         self.string = ''            # Text for the current level
         self.user_string = ''       # User inputted text-input
-        self.wrong_letters = 0      # Self explanitory
+        self.wrong_letters = 0      # Number of lvl_string[index] != usr_string[index]
+        self.length_diff = 0        # Diff in lenght between lvl_string and usr_string
         self.new_is_better = False  # If true, then data is sent to server
         self.highscore_dict = {}    # A dictionary which a file is read to,
         #                              and which a file is written from.
@@ -126,44 +127,70 @@ class LogicGuy:
                - Wrong length - more difference, less points 
             And then it prints all the stats using graphics.print_stats()"""
 
-        self.addclockdiff_points(data)
-        self.addstringlen_points(data)
-        self.addlengthdiff_points(data)
+        self.add_clockdiff_points(data)
+        self.add_stringlen_points(data)
+        self.add_lengthdiff_points(data)
 
         gfx.print_stats(data)
 
-    def addclockdiff_points(self, data):
-        # --- Evaluate how much time the user has spent typing ---
-        data.clock_diff = data.clock_after - data.clock_before
-        if data.clock_diff <= 5.0:
-            pass
-        elif data.clock_diff > 5.0:
-            data.points -= (-50+(data.clock_diff*6))
-        data.points = int(data.points)
-        return 0
+    def add_clockdiff_points(self, data):
+        # --- Get data -----
+        before = data.clock_before
+        after = data.clock_after
+        points = data.points
+        diff = 0.0
 
-    def addstringlen_points(self, data):
-        # --- Choose shortest string ---
-        if len(data.string) <= len(data.user_string):
-            shortest_string = len(data.string)
+        # --- Evaluate how much time the user has spent typing ---
+        diff = after - before
+        if diff <= 5.0:                # 5 seconds
+            pass
+        elif diff > 5.0:
+            points -= (-50+(diff*6))
+        points = int(points)          # points = float --> int
+        
+        # --- Return new data ---
+        data.points = points
+        data.clock_diff = diff
+
+    def add_stringlen_points(self, data):
+        # --- Get data ---
+        lvl_string = data.string   # Level-string
+        usr_string = data.user_string  # User-string
+        points = data.points
+
+        # --- Find length of shortest string ---
+        if len(lvl_string) <= len(usr_string):
+            short_string = len(lvl_string)
         else:
-            shortest_string = len(data.user_string)
+            short_string = len(usr_string)
 
         # --- Evaluate how many letters are wrong ----
-        data.wrong_letters = 0
-        for i in range(shortest_string):
-            if data.string[i] == data.user_string[i]:
+        wrong_letters = 0
+        for i in range(short_string):
+            if lvl_string[i] == usr_string[i]:
                 pass
             else:
-                data.wrong_letters += 1
-                data.points -= 2
-        return 0
+                wrong_letters += 1
+                points -= 2
 
-    def addlengthdiff_points(self, data):
+        # --- Return new data ---
+        data.points = points
+        data.wrong_letters = wrong_letters
+
+    def add_lengthdiff_points(self, data):
+        # --- Get data ---
+        lvl_string = data.string
+        usr_string = data.user_string
+        points = data.points
+        diff = 0
+
         # --- Evaluate difference in length -------
-        data.length_diff = abs(len(data.string) - len(data.user_string))
-        data.points -= (data.length_diff*20)
-        if data.points < 1:
-            data.points = 1
-        return 0
+        diff = abs(len(lvl_string) - len(usr_string))
+        points -= (diff*20)
+        if points < 1:
+            points = 1
+        
+        # --- Return new data ---
+        data.points = points
+        data.length_diff = diff
 
