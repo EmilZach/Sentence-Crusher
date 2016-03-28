@@ -63,14 +63,13 @@ class GfxGuy:
               "".format(data.level, data.clock_diff, data.wrong_letters, data.length_diff, data.points, data.time_stamp))
 
     def print_highscore(self, data, storage):
-        level = data.level
         score_table = storage.get_sorted_highscore(data)
 
         print('                           \n'
               ' ========================= \n'
               '   HIGHSCORE: LEVEL {0})   \n'
               ' ========================= \n'
-              ''.format(level))
+              ''.format(data.level))
 
         for tup in score_table:
             tup = str(tup)

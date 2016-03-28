@@ -35,6 +35,7 @@ class DataGuy:
 
         # --- Store historic file-data in a dictionary with player-names as keys ---
         self.level_history = {}
+        self.sorted_highscorelist = []
 
         print("Data has been reset")
 

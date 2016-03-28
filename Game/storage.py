@@ -86,7 +86,7 @@ class StorageGuy:
                 break
 
         file.close()
-        return 0
+        
 
     def getkey(self, item):
         return item[1]
@@ -96,28 +96,17 @@ class StorageGuy:
            all saved data about the current level.
             Returns a sorted list of tuples, with names
              and scores from highest to lowest.
-              And the lenght of said list.
              ------------------- Jonas --------------- """
         old_data = data.level_history.copy() # .copy() IMPORTANT!
         liste = []
 
-        #for key in old_data:
-         #   liste.append([key, old_data[key][0]]) 
+        for key in old_data:
+            liste.append([key, old_data[key][0]]) 
 
+        sorted_list = sorted(liste, key=self.getkey, reverse=True)
 
-        while True:
-            try:
-                getit = old_data.popitem()
-                get_name = getit[0]
-                get_pts = getit[1][0]
-                tup = (get_name, get_pts)
-                liste.append(tup)
-            except KeyError:
-                break
-
-        liste_sort = sorted(liste, key=self.getkey, reverse=True)
-
-        return liste_sort
+        # --- Return new data ---
+        data.sorted_highscorelist = sorted_list
 
 
 
