@@ -7,25 +7,20 @@ class StorageGuy:
 
     def store_data(self, data):
         """ Tasks:
-            1. Read old data from file.
-            2. Compare old data vs new data
-            3. Store new data if old points is worse, or 
+            1. Compare old data vs new data
+            2. Store new data if old points is worse, or 
                 non-existent.
         ------------------------ Jonas ---"""
-
-        # Task 1  - (This has already been done in get_sorted_highscore())
-        self.read_from_file(data)
-
-        # Task 2
+        # Task 1
         try: 
             old_points = int(data.level_history[data.user][0])
         except KeyError:
             old_points = 0
         
         if data.points > old_points:
-            # Task 3    
+            # Task 2    
             data.store_new_data()
-            data.highscore_dict[data.user] = data.new_data
+            data.level_history[data.user] = data.new_data
             self.write_to_file(data)
 
             data.new_is_better = True
@@ -61,31 +56,27 @@ class StorageGuy:
         """Function writes from level_history, 
             which possibly contains new data,
              back to the file in this format: 
-           name,points,Time-stamp,Duration,level,game\n
+           'name,points,Time-stamp,Duration,level,game\n'
             -------------------------- Jonas ---- """
-
         file = open('Highscorelists\level{0}.txt'.format(data.level), 'w')
 
-        pop_this_dict = data.level_history.copy()    # .copy() IMPORTANT!
+        updated_dict = data.level_history    
+        unwanted_characters = ['[',']', '\'', ' ']
+        write_this = ''
 
-        while True: 
-            try:
-                item_pop = str(pop_this_dict.popitem())
-                # Format
-                item_pop = item_pop.replace('"', '')
-                item_pop = item_pop.replace('(', '')
-                item_pop = item_pop.replace(')', '')
-                item_pop = item_pop.replace('[', '')
-                item_pop = item_pop.replace(']', '')
-                item_pop = item_pop.replace('\'', '')
-                item_pop = item_pop.replace(' ', '')
-                
-                file.write(item_pop)   
-                file.write("\n")
-            except KeyError:
-                break
+        for key in updated_dict:   # key: is username:
+            liste = []
+            liste.append([key, updated_dict[key]])
+            for char in str(liste):
+                if char in unwanted_characters:
+                    pass
+                else:
+                    write_this += char
+            file.write(write_this)
+            file.write('\n')
 
         file.close()
+
 
     def getkey(self, item):
         return item[1]
@@ -96,11 +87,11 @@ class StorageGuy:
             Returns a sorted list of tuples, with names
              and scores from highest to lowest.
              ------------------- Jonas --------------- """
-        old_data = data.level_history.copy() # .copy() IMPORTANT!
+        old_data = data.level_history
         liste = []
 
-        for key in old_data:
-            liste.append([key, old_data[key][0]]) 
+        for key in old_data:                      # Key = username
+            liste.append([key, old_data[key][0]]) # Index 0 = points 
 
         sorted_list = sorted(liste, key=self.getkey, reverse=True)
 
