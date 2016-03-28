@@ -86,7 +86,6 @@ class StorageGuy:
                 break
 
         file.close()
-        
 
     def getkey(self, item):
         return item[1]
