@@ -64,7 +64,7 @@ class GfxGuy:
 
     def print_highscore(self, data, storage):
         level = data.level
-        score_table = storage.get_sorted_highscore(data, level)
+        score_table = storage.get_sorted_highscore(data)
 
         print('                           \n'
               ' ========================= \n'

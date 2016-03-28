@@ -7,6 +7,7 @@
    Started: 16.03.2016
 
 """
+
 # --- Global modules ---
 import time
 import random
@@ -35,7 +36,8 @@ def game():
         data.new_game_state()     # Resets data every loop - Jonas
 
         gfx.greet_user(data)
-        Input.user_level(data)           
+        Input.user_level(data)
+        data.get_level_history(storage)           
 
         # -------------------- GRAPHICS -------------------- #
         gfx.print_highscore(data, storage)             

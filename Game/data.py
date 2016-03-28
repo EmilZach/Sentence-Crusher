@@ -32,9 +32,14 @@ class DataGuy:
         self.wrong_letters = 0      # Number of lvl_string[index] != usr_string[index]
         self.length_diff = 0        # Diff in lenght between lvl_string and usr_string
         self.new_is_better = False  # If true, then data is sent to server
-        self.highscore_dict = {}    # A dictionary which a file is read to,
-        #                              and which a file is written from.
+
+        # --- Store historic file-data in a dictionary with player-names as keys ---
+        self.level_history = {}
+
         print("Data has been reset")
+
+    def get_level_history(self, storage):
+        storage.read_from_file(self)
 
     def store_datetime(self):
         self.time_stamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
