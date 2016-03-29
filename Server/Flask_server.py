@@ -63,9 +63,8 @@ def collect_data():
     storage.get_sorted_highscore(data)
 
     # Deliver list to game client
-    return "Data received.\n",
-           "Scorelist from web server: %s" % data.sorted_highscorelist
-
+    return_this = "Data received. Scorelist from web server: %s" % data.sorted_highscorelist
+    return return_this
 
 if __name__ == "__main__":
     data = DataGuy()
