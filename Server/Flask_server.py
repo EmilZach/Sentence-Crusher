@@ -33,13 +33,14 @@ def level3():
 def level4():
     return render_template('Level4.html')
 
-@app.route("/newest-data")
+@app.route("/lastdata")
 def data():
     """
     Render page with raw_data from game client
     """
-    return render_template('data.html', user=data.user, points=data.points, timestamp=data.time_stamp,
-                             clockdiff=data.clock_diff, level=data.level, game=data.game)
+    return render_template('data.html', user=data.user, points=data.points, 
+                             timestamp=data.time_stamp, clockdiff=data.clock_diff, 
+                                      level=data.level, game=data.game)
 
 
 # ---------- INCOMMING DATA from game-client -------- # 
@@ -56,17 +57,14 @@ def collect_data():
     data.level = int(request.form.get("level"))
     data.game = request.form.get("game")
 
-    # --- Get history from relevant level-file ----
-    get_level_history(storage)
-    # --- We need to get level_history before we can store new data ---
+    # --- Store data in given level-file ---
     storage.store_data(data)
-
     # Extract a list of scores
-    scorelist = storage.list_highscore(data, storage)
+    storage.get_sorted_highscore(data)
 
     # Deliver list to game client
-    return "Data received.\n" \
-           "Scorelist from web server: %s" % scorelist
+    return "Data received.\n",
+           "Scorelist from web server: %s" % data.sorted_highscorelist
 
 
 if __name__ == "__main__":

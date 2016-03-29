@@ -14,6 +14,8 @@ class StorageGuy:
             2. Store new data if old points is worse, or 
                 non-existent.
         ------------------------ Jonas ---"""
+        # --- Get data.level_history ----
+        self.read_from_file(data)
         # Task 1
         try: 
             old_points = int(data.level_history[data.user][0])
@@ -75,8 +77,8 @@ class StorageGuy:
         for key in updated_dict:   # key: is username:
             not_write_this = ''
             write_this = ''
-            not_write_this = str(key) + str(updated_dict[key])
-            for char in mot_write_this:
+            not_write_this = str(key) + "," + str(updated_dict[key])
+            for char in not_write_this:
                 if char in unwanted_characters:
                     pass
                 else:
@@ -90,6 +92,8 @@ class StorageGuy:
             Returns a sorted list of tuples, with names
              and scores from highest to lowest.
              ------------------- Jonas --------------- """
+        # --- Get data.level_history ----
+        self.read_from_file(data)
         old_data = data.level_history
         liste = []
         for key in old_data:                      # Key = username
