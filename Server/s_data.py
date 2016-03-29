@@ -24,7 +24,7 @@ class DataGuy:
         self.level_history = {}
         self.sorted_highscorelist = []
 
-
+        print("Dataguy initialized")
     def get_level_history(self, storage):
         storage.read_from_file(self)
         storage.get_sorted_highscore(self)

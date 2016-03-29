@@ -6,7 +6,7 @@ import os
 class StorageGuy:
     """ This class reads from, and writes to files, and sends data to server"""
     def __init__(self):
-        print("DatabaseGuy initialized")
+        print("StorageGuy initialized")
 
     def store_data(self, data):
         """ Tasks:
@@ -23,10 +23,9 @@ class StorageGuy:
         if data.points > old_points:
             # Task 2    
             data.make_newdata_list()
+            print(data.new_data)
             data.level_history[data.user] = data.new_data
             self.write_to_file(data)
-
-            data.new_is_better = True
         else: 
             pass
 
@@ -71,19 +70,18 @@ class StorageGuy:
 
         updated_dict = data.level_history    
         unwanted_characters = ['[',']', '\'', ' ']
-        write_this = ''
+        
 
         for key in updated_dict:   # key: is username:
-            liste = []
-            liste.append([key, updated_dict[key]])
-            for char in str(liste):
+            not_write_this = ''
+            write_this = ''
+            not_write_this = str(key) + str(updated_dict[key])
+            for char in mot_write_this:
                 if char in unwanted_characters:
                     pass
                 else:
                     write_this += char
-            file.write(write_this)
-            file.write('\n')
-
+            file.write(write_this + '\n')
         file.close()
 
     def get_sorted_highscore(self, data):

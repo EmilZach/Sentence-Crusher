@@ -33,12 +33,13 @@ def level3():
 def level4():
     return render_template('Level4.html')
 
-@app.route("/data-state")
+@app.route("/newest-data")
 def data():
     """
     Render page with raw_data from game client
     """
-    return render_template('data.html', game=cache.game, level=cache.level, score=cache.points, player=cache.user, timestamp=cache.time_stamp)
+    return render_template('data.html', user=data.user, points=data.points, timestamp=data.time_stamp,
+                             clockdiff=data.clock_diff, level=data.level, game=data.game)
 
 
 # ---------- INCOMMING DATA from game-client -------- # 
@@ -57,6 +58,7 @@ def collect_data():
 
     # --- Get history from relevant level-file ----
     get_level_history(storage)
+    # --- We need to get level_history before we can store new data ---
     storage.store_data(data)
 
     # Extract a list of scores
