@@ -69,7 +69,7 @@ class StorageGuy:
 
         # The next line is here to ensure file-path-compability on all operating systems
         os.path.join(os.path.dirname(__file__),('Highscorelists/level{0}.txt'.format(level)))
-        file = open('Highscorelists\level{0}.txt'.format(level), 'w')
+        file = open('Highscorelists/level{0}.txt'.format(level), 'w')
 
         updated_dict = data.level_history    
         unwanted_characters = ['[',']', '\'', ' ']
