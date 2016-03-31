@@ -15,7 +15,7 @@ import random
 
 # --- Local modules ---
 from storage import StorageGuy
-from data import DataGuy, InputGuy, LogicGuy
+from data import DataGuy, InputGuy, PointsGuy
 from graphics import GfxGuy
 
 
@@ -23,46 +23,48 @@ def game():
     # ------------ INITialize objects ------------- # 
     data = DataGuy()
     storage = StorageGuy()
-    gfx = GfxGuy()
+    graphics = GfxGuy()
     Input = InputGuy() # We can't name it "input" because it is a built-in function in Python.
-    logic = LogicGuy()
+    points = PointsGuy()
 
     # -------------- Start new_game ------------- #
-    gfx.print_opening()
+    graphics.print_opening()
     Input.user_name(data)
 
     while True:
         # -------------------- INIT/input -------------------- #
         data.new_game_state()     # Resets data every loop - Jonas
 
-        gfx.greet_user(data)
+        graphics.greet_user(data)
         Input.user_level(data)
         data.get_level_history(storage)           
 
         # -------------------- GRAPHICS -------------------- #
-        gfx.print_highscore(data)             
+        graphics.print_highscore(data)             
         Input.enter_to_continue()
         
-        gfx.countdown_321()
-        data.store_clock_before()
+        graphics.countdown_321()
+        data.get_clock_before()
         
         # -------------------- CORE GAME -------------------- #
-        gfx.show_string(data)  
+        graphics.print_string(data)  
         Input.user_string(data)
         
         # --------------------- LOGIC ----------------------- #
-        data.store_clock_after()
-        data.store_datetime()
-        logic.calc_points(data, gfx)
+        data.get_clock_after()
+        data.get_datetime()
+        data.generate_points(points)
 
         # ---------------- DATABASE DUMP -------  -----------#
         storage.store_data(data)
 
         # ---------------- DATA TO SERVER -------  -----------#
-        msg = data.send_post_data()
-        print('Msg from web server: ', msg)
+        msg = data.send_data()
 
-        # -------------------- INPUT -------------------- #
+        # -------------------- GRAPHICS/INPUT -------------------- #
+        print('Msg from web server: ', msg)
+        graphics.print_stats(data)
+
         if Input.continue_game() is True:
             continue
         else:

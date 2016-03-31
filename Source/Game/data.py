@@ -15,6 +15,7 @@ class DataGuy:
         # --- Data which is going to be stored in a file -----
         self.game = 'Sentence Crushers'
         self.user = ''              # User name is a string.upper()
+        print("DataGuy initialized")
 
     def new_game_state(self):
         # --- Data which is going to be stored in a file -----
@@ -41,21 +42,18 @@ class DataGuy:
 
     def get_level_history(self, storage):
         storage.read_from_file(self)
-        storage.get_sorted_highscore(self)
+        self.generate_sorted_highscore()
 
-    def store_datetime(self):
+    def get_datetime(self):
         self.time_stamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    def make_newdata_list(self):
-        self.new_data = [self.points, self.time_stamp, self.clock_diff, self.level, self.game]
-
-    def store_clock_before(self):
+    def get_clock_before(self):
         self.clock_before = time.clock()
 
-    def store_clock_after(self):
+    def get_clock_after(self):
         self.clock_after = time.clock()
 
-    def send_post_data(self):
+    def send_data(self):
         """
         Here the new data is packaged and sent to server.
          It is important to keep the same format of the data
@@ -84,6 +82,105 @@ class DataGuy:
 
         else:
             print("You have a higher score already registered. No data sent")
+
+    def generate_newdata_list(self):
+        self.new_data = [self.points, self.time_stamp, self.clock_diff, self.level, self.game]
+
+    def generate_sorted_highscore(self):
+        """ Function gets data from level_history which has
+           all saved data about the current level.
+            Returns a sorted list of tuples, with names
+             and scores from highest to lowest.
+             ------------------- Jonas --------------- """
+        # --- Get data.level_history ---
+        history = self.level_history
+        liste = []
+        for key in history:                      # Key = username
+            liste.append([key, history[key][0]]) # Index 0 = points 
+
+        sorted_list = sorted(liste, key=lambda item: item[1], reverse=True)
+
+        # --- Return new data ---
+        self.sorted_highscorelist = sorted_list
+
+    
+    def generate_points(self, points):
+        """ This function generates the final score based on three
+             criteria:
+               - Time spent - more time less points
+               - Wrong letters - more wrong, less points
+               - Wrong length - more difference, less points """
+
+        points.clockdiff(self)
+        points.stringlenght(self)
+        points.lengthdiff(self)
+
+
+class PointsGuy:
+    """ This class decides how much points you get"""
+    def __init__(self):
+        print("PointsGuy initialized")
+
+    def clockdiff(self, data):
+        # --- Get data -----
+        before = data.clock_before
+        after = data.clock_after
+        points = data.points
+        diff = 0.0
+
+        # --- Evaluate how much time the user has spent typing ---
+        diff = after - before
+        if diff <= 5.0:                # 5 seconds
+            pass
+        elif diff > 5.0:
+            points -= (-50+(diff*6))
+        points = int(points)          # points = float --> int
+        
+        # --- Return new data ---
+        data.points = points
+        data.clock_diff = diff
+
+    def stringlenght(self, data):
+        # --- Get data ---
+        lvl_string = data.lvl_string   # Level-string
+        usr_string = data.user_string  # User-string
+        points = data.points
+
+        # --- Find length of shortest string ---
+        if len(lvl_string) <= len(usr_string):
+            short_string = len(lvl_string)
+        else:
+            short_string = len(usr_string)
+
+        # --- Evaluate how many letters are wrong ----
+        wrong_letters = 0
+        for i in range(short_string):
+            if lvl_string[i] == usr_string[i]:
+                pass
+            else:
+                wrong_letters += 1
+                points -= 2
+
+        # --- Return new data ---
+        data.points = points
+        data.wrong_letters = wrong_letters
+
+    def lengthdiff(self, data):
+        # --- Get data ---
+        lvl_string = data.lvl_string
+        usr_string = data.user_string
+        points = data.points
+        diff = 0
+
+        # --- Evaluate difference in length -------
+        diff = abs(len(lvl_string) - len(usr_string))
+        points -= (diff*20)
+        if points < 1:
+            points = 1
+        
+        # --- Return new data ---
+        data.points = points
+        data.length_diff = diff
 
 
 class InputGuy:
@@ -122,85 +219,3 @@ class InputGuy:
 
     def enter_to_continue(self):
         input("\n\tNow, press enter and get ready to write!")
-
-
-class LogicGuy:
-    """ This class handles necessary calculations"""
-    def __init__(self):
-        print("LogicGuy initialized")
-
-    def calc_points(self, data, gfx):
-        """ This function calculates the final score based on three
-             criteria:
-               - Time spent - more time less points
-               - Wrong letters - more wrong, less points
-               - Wrong length - more difference, less points 
-            And then it prints all the stats using graphics.print_stats()"""
-
-        self.add_clockdiff_points(data)
-        self.add_stringlen_points(data)
-        self.add_lengthdiff_points(data)
-
-        gfx.print_stats(data)
-
-    def add_clockdiff_points(self, data):
-        # --- Get data -----
-        before = data.clock_before
-        after = data.clock_after
-        points = data.points
-        diff = 0.0
-
-        # --- Evaluate how much time the user has spent typing ---
-        diff = after - before
-        if diff <= 5.0:                # 5 seconds
-            pass
-        elif diff > 5.0:
-            points -= (-50+(diff*6))
-        points = int(points)          # points = float --> int
-        
-        # --- Return new data ---
-        data.points = points
-        data.clock_diff = diff
-
-    def add_stringlen_points(self, data):
-        # --- Get data ---
-        lvl_string = data.lvl_string   # Level-string
-        usr_string = data.user_string  # User-string
-        points = data.points
-
-        # --- Find length of shortest string ---
-        if len(lvl_string) <= len(usr_string):
-            short_string = len(lvl_string)
-        else:
-            short_string = len(usr_string)
-
-        # --- Evaluate how many letters are wrong ----
-        wrong_letters = 0
-        for i in range(short_string):
-            if lvl_string[i] == usr_string[i]:
-                pass
-            else:
-                wrong_letters += 1
-                points -= 2
-
-        # --- Return new data ---
-        data.points = points
-        data.wrong_letters = wrong_letters
-
-    def add_lengthdiff_points(self, data):
-        # --- Get data ---
-        lvl_string = data.lvl_string
-        usr_string = data.user_string
-        points = data.points
-        diff = 0
-
-        # --- Evaluate difference in length -------
-        diff = abs(len(lvl_string) - len(usr_string))
-        points -= (diff*20)
-        if points < 1:
-            points = 1
-        
-        # --- Return new data ---
-        data.points = points
-        data.length_diff = diff
-

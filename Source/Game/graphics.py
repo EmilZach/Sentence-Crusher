@@ -25,7 +25,7 @@ class GfxGuy:
             print(logo_dict[i])
             time.sleep(0.05)
 
-    def show_string(self, data):
+    def print_string(self, data):
 
         level = data.level
         string_dict = {1: "\"Object-oriented programming is an exceptionally bad idea"

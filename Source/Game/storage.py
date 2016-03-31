@@ -24,7 +24,7 @@ class StorageGuy:
         
         if data.points > old_points:
             # Task 2    
-            data.make_newdata_list()
+            data.generate_newdata_list()
             data.level_history[data.user] = data.new_data
             self.write_to_file(data)
 
@@ -88,21 +88,3 @@ class StorageGuy:
 
         file.close()
 
-    def get_sorted_highscore(self, data):
-        """ Function gets data from level_history which has
-           all saved data about the current level.
-            Returns a sorted list of tuples, with names
-             and scores from highest to lowest.
-             ------------------- Jonas --------------- """
-        # --- Get data.level_history ----
-        self.read_from_file(data)
-
-        old_data = data.level_history
-        liste = []
-        for key in old_data:                      # Key = username
-            liste.append([key, old_data[key][0]]) # Index 0 = points 
-
-        sorted_list = sorted(liste, key=lambda item: item[1], reverse=True)
-
-        # --- Return new data ---
-        data.sorted_highscorelist = sorted_list
