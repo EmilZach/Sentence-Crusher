@@ -1,0 +1,52 @@
+DataGuy - class:
+
+Ïntroduction:
+- This abstract class has been mystified and discussed widely through the ages. What is it really? Is it just pure data? Is it a guy? Can it think? 
+Below we try to make DataGuy-class a more solid concept to comprehend, enjoy 
+
+
+Body:
+DataGuy, as any other class, concists of Attributes and Methods.
+
+
+Attributes: 
+  The attributes of DataGuy holds Game data, that is relevant for the current game session - and all its functions - to work as they should.
+
+
+Methods: 
+    There are 3 kinds of methods in the DataGuy-class.
+
+    Type 1: Get-methods. 
+       - The Get methods finds data in other modules and stores them as attributes in the DataGuy class.
+
+         | get_level_history(self, storage) - gets a dictionary from storage.
+                                              This dictionary is modified, and sent back to storage later.
+
+           get_date_time(self)              - from datetime - module   
+           get_clock_before(self)           - from time - module
+           get_clock_after(self)           
+
+
+    Type 2: Generate - methods
+       - The Generate- methods generates new data, based on the data that DataGuy already has,
+          and stores it as attributes.
+
+          | generate_newdata_list(self)    - this list is usefull
+                                             when new data is going to be stored in the file.
+
+            generate_sorted_highscore(self)- a sorted list of all the 
+                                              highscores. Used by graphics
+                                              module to present highscore.
+
+            generate_points(self)          - The points have to be stored. 
+                                             Maybe the most important data 
+                                            of the game.
+
+
+    Type 3: Send - method
+       - The Send-method sends data that the DataGuy has collected onwards to the server.
+
+           send_data(self) - This method uses requests.post(url, data)
+
+
+           Ført i pennen av: Jonas

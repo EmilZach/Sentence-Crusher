@@ -53,6 +53,37 @@ class DataGuy:
     def get_clock_after(self):
         self.clock_after = time.clock()
 
+    def generate_newdata_list(self):
+        self.new_data = [self.points, self.time_stamp, self.clock_diff, self.level, self.game]
+
+    def generate_sorted_highscore(self):
+        """ Function gets data from level_history which has
+           all saved data about the current level.
+            Returns a sorted list of tuples, with names
+             and scores from highest to lowest.
+             ------------------- Jonas --------------- """
+        # --- Get data.level_history ---
+        history = self.level_history
+        liste = []
+        for key in history:                      # Key = username
+            liste.append([key, history[key][0]]) # Index 0 = points 
+
+        sorted_list = sorted(liste, key=lambda item: item[1], reverse=True)
+
+        # --- Return new data ---
+        self.sorted_highscorelist = sorted_list
+
+    def generate_points(self, points):
+        """ This function generates the final score based on three
+             criteria:
+               - Time spent - more time less points
+               - Wrong letters - more wrong, less points
+               - Wrong length - more difference, less points """
+
+        points.clockdiff(self)
+        points.stringlenght(self)
+        points.lengthdiff(self)
+
     def send_data(self):
         """
         Here the new data is packaged and sent to server.
@@ -82,38 +113,6 @@ class DataGuy:
 
         else:
             print("You have a higher score already registered. No data sent")
-
-    def generate_newdata_list(self):
-        self.new_data = [self.points, self.time_stamp, self.clock_diff, self.level, self.game]
-
-    def generate_sorted_highscore(self):
-        """ Function gets data from level_history which has
-           all saved data about the current level.
-            Returns a sorted list of tuples, with names
-             and scores from highest to lowest.
-             ------------------- Jonas --------------- """
-        # --- Get data.level_history ---
-        history = self.level_history
-        liste = []
-        for key in history:                      # Key = username
-            liste.append([key, history[key][0]]) # Index 0 = points 
-
-        sorted_list = sorted(liste, key=lambda item: item[1], reverse=True)
-
-        # --- Return new data ---
-        self.sorted_highscorelist = sorted_list
-
-    
-    def generate_points(self, points):
-        """ This function generates the final score based on three
-             criteria:
-               - Time spent - more time less points
-               - Wrong letters - more wrong, less points
-               - Wrong length - more difference, less points """
-
-        points.clockdiff(self)
-        points.stringlenght(self)
-        points.lengthdiff(self)
 
 
 class PointsGuy:
