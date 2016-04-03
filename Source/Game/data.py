@@ -61,7 +61,24 @@ class DataGuy:
         points.stringlenght(self)
         points.lengthdiff(self)
 
-    def send_data(self):
+
+class NetworkGuy:
+
+    def __init__(self):
+        print("NetworkGuy initialized")
+
+    def check_connection(self):
+        url = "http://127.0.0.1:5000/check_link"
+        try: 
+            r = requests.post(url)
+            if r:
+                return r.text
+
+        except requests.ConnectionError as e:
+            print("\nThere is no connection to the server.\n"
+                  "Your score will not be recorded.. \n")
+
+    def send_data(self, data):
         """
         Here the new data is packaged and sent to server.
          It is important to keep the same format of the data
@@ -72,13 +89,14 @@ class DataGuy:
 
         url = "http://127.0.0.1:5000/collect_data"
 
-        self.generate_newdata_list()
-        information = {'new_data': self.new_data}
+        data.generate_newdata_list()
+        information = {'new_data': data.new_data}
 
         try:
             r = requests.post(url, data=information)
             if r:
                 return r.text
+
         except requests.ConnectionError as e:
             print('No connection with web server.')
 

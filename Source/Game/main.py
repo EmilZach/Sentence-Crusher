@@ -13,13 +13,14 @@ import time
 import random
 
 # --- Local modules ---
-from data import DataGuy, InputGuy, PointsGuy
+from data import DataGuy, InputGuy, PointsGuy, NetworkGuy
 from graphics import GfxGuy
 
 
 def game():
     # ------------ INITialize objects ------------- # 
     data = DataGuy()
+    network = NetworkGuy()
     graphics = GfxGuy()
     Input = InputGuy() # We can't name it "input" because it is a built-in function in Python.
     points = PointsGuy()
@@ -28,7 +29,7 @@ def game():
     graphics.print_opening()
     Input.user_name(data)
 
-    # cHECK DATA connection
+    network.check_connection()
 
     while True:
         # -------------------- INIT/input -------------------- #
@@ -53,7 +54,7 @@ def game():
         data.generate_points(points)
 
         # ---------------- DATA TO SERVER -------  -----------#
-        msg = data.send_data()
+        msg = network.send_data(data)
 
         # -------------------- GRAPHICS/INPUT -------------------- #
         print('Msg from web server: ', msg)

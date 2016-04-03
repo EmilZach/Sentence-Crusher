@@ -45,11 +45,10 @@ def data():
 
 # ---------- INCOMMING DATA from game-client -------- # 
 
-@app.route("/level_history", methods=['POST'])
+@app.route("/check-link", methods=['POST'])
+def check_link():
+    return "Connection with server established."
 
-    level = request.form.get("level")
-    data.level_history = read_from_file(level)
-    return data.level_history
 
 @app.route("/collect_data", methods=['POST'])
 def collect_data():
