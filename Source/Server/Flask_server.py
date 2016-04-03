@@ -47,26 +47,26 @@ def data():
 
 @app.route("/check-link", methods=['POST'])
 def check_link():
-    return "Connection with server established."
+    return "SERVER ONLINE!"
 
 
-@app.route("/collect_data", methods=['POST'])
+@app.route("/store-data", methods=['POST'])
 def collect_data():
     """ Collecting incomming data in the data-class,
     so it can be stored in a file.
     :return:
     """
-    data.new_data = request.form.get("new_data")
-    print(data.new_data)
+    new_data = request.form.get("new_data")
 
-    # Deliver list to game client
-    return_this = "Data received. Scorelist from web server: %s" % data.sorted_highscorelist
-    return return_this
+    data = DataGuy(new_data)
+    storage = StorageGuy()
+    storage.store_data(data)
+
+
+    return "DATA STORED ON THE SERVER!."
 
 
 if __name__ == "__main__":
-    data = DataGuy()
-    storage = StorageGuy()
     app.run(debug=True)
 
 

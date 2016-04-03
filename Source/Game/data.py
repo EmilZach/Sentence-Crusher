@@ -63,7 +63,7 @@ class DataGuy:
 
 
 class NetworkGuy:
-
+    "This class handles talking with the server."
     def __init__(self):
         print("NetworkGuy initialized")
 
@@ -87,7 +87,7 @@ class NetworkGuy:
         :return: listing
         """
 
-        url = "http://127.0.0.1:5000/collect_data"
+        url = "http://127.0.0.1:5000/store-data"
 
         data.generate_newdata_list()
         information = {'new_data': data.new_data}
