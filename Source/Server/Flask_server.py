@@ -6,7 +6,6 @@
 """
 
 from flask import Flask, render_template, request
-from serverdata import DataGuy
 from storage import StorageGuy
 
 
@@ -70,6 +69,20 @@ def collect_data():
 
 
     return "DATA STORED ON THE SERVER!."
+
+
+class DataGuy:
+    """ This class handles data for the server"""
+    def __init__(self, new_data):
+
+        self.new_data = new_data
+        self.points = new_data[0]
+        self.user = new_data[1]
+        self.level = new_data[4]
+
+        self.level_history = {}
+
+        print("Dataguy initialized")
 
 
 if __name__ == "__main__":
