@@ -22,7 +22,7 @@ class StorageGuy:
         except KeyError:
             old_points = 0
         
-        if data.points > old_points:
+        if int(data.points) > old_points:
             # Task 2    
             data.level_history[data.user] = data.new_data
             self.write_to_file(data)
@@ -37,7 +37,7 @@ class StorageGuy:
                Name2: [Points, Time-stamp, Duration, level, game] }
                ....
                ----------------------------- Jonas ----      """
-        level = data.level
+        level = str(data.level)
 
         # The next line is here to ensure file-path-compability on all operating systems
         os.path.join(os.path.dirname(__file__),('Highscorelists/level{0}.txt'.format(level)))
@@ -62,7 +62,7 @@ class StorageGuy:
              back to the file in this format: 
            'name,points,Time-stamp,Duration,level,game\n'
             -------------------------- Jonas ---- """
-        level = data.level
+        level = str(data.level)
 
         # The next line is here to ensure file-path-compability on all operating systems
         os.path.join(os.path.dirname(__file__),('Highscorelists/level{0}.txt'.format(level)))

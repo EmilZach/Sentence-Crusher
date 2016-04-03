@@ -23,7 +23,7 @@ class DataGuy:
         self.points = 300           # Begins at 300 which is maximum score. 
         self.clock_diff = 0.0       # Time spent typing
         self.time_stamp = ''        # Time stamp when user have submitted text
-        self.new_data = []          # List containing all of the above
+        self.new_data = {}          # List containing all of the above
 
         # --- Data which stays only in memory ---
         self.clock_before = 0.00    # Clock just before textinput 
@@ -45,10 +45,13 @@ class DataGuy:
     def get_clock_after(self):
         self.clock_after = time.clock()
 
-    def generate_newdata_list(self):
-        self.new_data = [str(self.points), self.user, 
-                         str(self.time_stamp), str(self.clock_diff), 
-                         str(self.level), self.game]
+    def generate_newdata_dict(self):
+        self.new_data = {'points': str(self.points), 
+                         'username': self.user, 
+                         'timestamp':str(self.time_stamp), 
+                         'clockdiff': str(self.clock_diff), 
+                         'level':str(self.level), 
+                         'game': self.game}
 
     def generate_points(self, points):
         """ This function generates the final score based on three
@@ -69,8 +72,9 @@ class NetworkGuy:
 
     def check_connection(self):
         url = "http://127.0.0.1:5000/check_link"
+        dummytekst = "trololol"
         try: 
-            r = requests.post(url)
+            r = requests.post(url, data=dummytekst)
             if r:
                 return r.text
 
@@ -86,12 +90,10 @@ class NetworkGuy:
            points, username, time_stamp, clock_diff, level, game
         :return: listing
         """
-
         url = "http://127.0.0.1:5000/store-data"
+        data.generate_newdata_dict()
 
-        data.generate_newdata_list()
-        information = {'new_data': data.new_data}
-
+        information = data.new_data
         try:
             r = requests.post(url, data=information)
             if r:

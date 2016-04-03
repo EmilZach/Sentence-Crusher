@@ -6,8 +6,8 @@
 """
 
 from flask import Flask, render_template, request
-from s_data import DataGuy
-from s_storage import StorageGuy
+from serverdata import DataGuy
+from storage import StorageGuy
 
 
 app = Flask(__name__)
@@ -56,10 +56,16 @@ def collect_data():
     so it can be stored in a file.
     :return:
     """
-    new_data = request.form.get("new_data")
+    new_data = [request.form.get("points"),
+                request.form.get("username"),
+                request.form.get("timestamp"),
+                request.form.get("clockdiff"),
+                request.form.get("level"),
+                request.form.get("game")]
 
     data = DataGuy(new_data)
     storage = StorageGuy()
+
     storage.store_data(data)
 
 
