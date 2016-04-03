@@ -45,7 +45,7 @@ def data():
 
 # ---------- INCOMMING DATA from game-client -------- # 
 
-@app.route("/get_levelhistory", methods=['POST'])
+@app.route("/level_history", methods=['POST'])
 
     level = request.form.get("level")
     data.level_history = read_from_file(level)

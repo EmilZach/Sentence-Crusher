@@ -34,15 +34,7 @@ class DataGuy:
         self.length_diff = 0        # Diff in lenght between lvl_string and usr_string
         self.new_is_better = False  # If true, then data is sent to server
 
-        # --- Store historic file-data in a dictionary with player-names as keys ---
-        self.level_history = {}
-        self.sorted_highscorelist = []
-
         print("Data has been reset")
-
-    def get_level_history(self, storage):
-        storage.read_from_file(self)
-        self.generate_sorted_highscore()
 
     def get_datetime(self):
         self.time_stamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -57,23 +49,6 @@ class DataGuy:
         self.new_data = [str(self.points), self.user, 
                          str(self.time_stamp), str(self.clock_diff), 
                          str(self.level), self.game]
-
-    def generate_sorted_highscore(self):
-        """ Function gets data from level_history which has
-           all saved data about the current level.
-            Returns a sorted list of tuples, with names
-             and scores from highest to lowest.
-             ------------------- Jonas --------------- """
-        # --- Get data.level_history ---
-        history = self.level_history
-        liste = []
-        for key in history:                      # Key = username
-            liste.append([key, history[key][0]]) # Index 0 = points 
-
-        sorted_list = sorted(liste, key=lambda item: item[1], reverse=True)
-
-        # --- Return new data ---
-        self.sorted_highscorelist = sorted_list
 
     def generate_points(self, points):
         """ This function generates the final score based on three

@@ -12,9 +12,7 @@
 import time
 import random
 
-
 # --- Local modules ---
-from storage import StorageGuy
 from data import DataGuy, InputGuy, PointsGuy
 from graphics import GfxGuy
 
@@ -22,7 +20,6 @@ from graphics import GfxGuy
 def game():
     # ------------ INITialize objects ------------- # 
     data = DataGuy()
-    storage = StorageGuy()
     graphics = GfxGuy()
     Input = InputGuy() # We can't name it "input" because it is a built-in function in Python.
     points = PointsGuy()
@@ -31,16 +28,16 @@ def game():
     graphics.print_opening()
     Input.user_name(data)
 
+    # cHECK DATA connection
+
     while True:
         # -------------------- INIT/input -------------------- #
         data.new_game_state()     # Resets data every loop - Jonas
 
         graphics.greet_user(data)
-        Input.user_level(data)
-        data.get_level_history(storage)           
+        Input.user_level(data)         
 
-        # -------------------- GRAPHICS -------------------- #
-        graphics.print_highscore(data)             
+        # -------------------- GRAPHICS -------------------- #          
         Input.enter_to_continue()
         
         graphics.countdown_321()
@@ -54,9 +51,6 @@ def game():
         data.get_clock_after()
         data.get_datetime()
         data.generate_points(points)
-
-        # ---------------- DATABASE DUMP -------  -----------#
-        storage.store_data(data)
 
         # ---------------- DATA TO SERVER -------  -----------#
         msg = data.send_data()

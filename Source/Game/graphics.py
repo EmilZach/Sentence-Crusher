@@ -61,24 +61,6 @@ class GfxGuy:
               "  Date: {5}                                     \n"
               "".format(data.level, data.clock_diff, data.wrong_letters, data.length_diff, data.points, data.time_stamp))
 
-    def print_highscore(self, data):
-
-        print('                           \n'
-              ' ========================= \n'
-              '   HIGHSCORE: LEVEL {0})   \n'
-              ' ========================= \n'
-              ''.format(data.level))
-
-        highscores = data.sorted_highscorelist
-
-        for pair in highscores:
-            formatted = "   ".join(pair)
-            print("    " + formatted)
-            time.sleep(0.1)
-
-        print(' ========================== \n'
-              '                              ')
-
     def greet_user(self, data):
         name = data.user
         print("\nHello, %s " % name)
