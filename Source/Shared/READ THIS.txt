@@ -1,2 +1,0 @@
-This file is here because an empty folder can't get pushed to GitHub. 
-When there are files in this folder, delete this text document.
