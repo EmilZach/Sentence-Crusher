@@ -54,7 +54,9 @@ class DataGuy:
         self.clock_after = time.clock()
 
     def generate_newdata_list(self):
-        self.new_data = [self.points, self.time_stamp, self.clock_diff, self.level, self.game]
+        self.new_data = [str(self.points), self.user, 
+                         str(self.time_stamp), str(self.clock_diff), 
+                         str(self.level), self.game]
 
     def generate_sorted_highscore(self):
         """ Function gets data from level_history which has
@@ -89,30 +91,21 @@ class DataGuy:
         Here the new data is packaged and sent to server.
          It is important to keep the same format of the data
           throughout the program. 
-           user, points, time_stamp, clock_diff, level, game
+           points, username, time_stamp, clock_diff, level, game
         :return: listing
         """
 
         url = "http://127.0.0.1:5000/collect_data"
 
-        if self.new_is_better:
-            information = {}
-            information['user'] = self.user
-            information['points'] = self.new_data[0]
-            information['time_stamp'] = self.new_data[1]
-            information['clock_diff'] = self.new_data[2]
-            information['level'] = self.new_data[3]
-            information['game'] = self.new_data[4]
+        self.generate_newdata_list()
+        information = {'new_data': self.new_data}
 
-            try:
-                r = requests.post(url, data=information)
-                if r:
-                    return r.text
-            except requests.ConnectionError as e:
-                print('No connection with web server.')
-
-        else:
-            print("You have a higher score already registered. No data sent")
+        try:
+            r = requests.post(url, data=information)
+            if r:
+                return r.text
+        except requests.ConnectionError as e:
+            print('No connection with web server.')
 
 
 class PointsGuy:
