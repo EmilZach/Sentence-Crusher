@@ -23,7 +23,7 @@ class StorageGuy:
         except KeyError:
             old_points = 0
         
-        if int(data.points) > old_points:
+        if int(data.points) != old_points:
             # Task 2    
             data.level_history[data.user] = data.new_data
             self.write_to_file(data.level_history, data.level)
